@@ -14,6 +14,9 @@ Feature: Database security of patient records
 		And I encrypt the name field using the installed software
 		And I encrypt the name field using my new independently implementation of the encryption algorithm
 		Then I should see the encrypted name field equal the independently encrypted name field
+
+	@6.1.1
+	Scenario: Decryption of patient information in medical records
 	
 	@6.1.2
 	Scenario: Zeroing of information on the hard drive to ensure HIPAA compliance
