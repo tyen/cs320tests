@@ -64,12 +64,16 @@ Feature: role system
       | Doctor	   | eric     | imadoctor |
       | Pharmacist | ed	      | drugcheck |
 
-  @3.2.2 @wip
+  @3.2.2
   Scenario: check that role assignment stays consistent
+    Given the roles "Nurse, Doctor, Pharmacist" exist
+    And "7500" users with username "user<i>" and password "secretpw<i>", where <i> ranges from 1 to 7500
+    And "user<i>" has a randomly selected role <role_name>
+    When I login all users "user<i>" with password "secretpw<i>"
+    Then the computer's user environment corresponds with the correctly assigned role
+    When I remove all useres "user<i>"
+    Then I expect now to be able to login as "user<i>" with password "secretpw<i>"
 
 
-  @3.2.3 @wip
+  @3.2.3
   Scenario: log all actions for each user
-
-
-  
