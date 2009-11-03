@@ -34,14 +34,31 @@ Feature: History Taking
 
   @5.3.1
   Scenario: saving an partial record on a local machine
+    Given I have access to the client database
+    And a role with permissions to create a medical record
+    And I create the following partial medical record:
+      |  name   |  DOB        |
+      |  Alex   |  10/21/1928 |
+      |  Bob    |  10/22/1928 |
+      |  Josh   |  10/23/1928 |
+      |  Jake   |  10/24/1928 |
+      |  Tim    |  10/25/1928 |
+      |  Steve  |  10/26/1928 |
+      |  Alex   |  10/27/1928 |
+      |  Joe    |  10/31/1928 |
+      |  Kim    |  10/11/1928 |
+      |  Jim    |  10/21/1928 |
+    When I attempt to submit each medical record
+    Then each medical record is not submitted
+    And each record is saved locally with incomplete area flagged
+    
 
   @5.3.2
   Scenario: restoring a partial medical record
     Given I have access to the client database
     And a role with permissions to create and edit medical records
-    And the following partial medical record:
+    And I create the following partial medical record:
       |  name  |  DOB        |
       |  Alex  |  10/21/1928 |
-    When I input the partial medical record data
-    And save the incomplete record locally
+    When I save the incomplete record locally and exit out of the medical record
     Then I should be able to restore the locally saved medical record
