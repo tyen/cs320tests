@@ -68,10 +68,67 @@ Feature: History Taking
     Then I am alerted of an unreasonable dosage
     
   @5.1.4
-  Scenario: catch invalid patient information
+  Scenario: save patient with blank name
+    Given I have a role with persmissions to create a medical record
+    And I have the following medical record:
+      | name    | DOB        | weight  | height |
+      | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
+    And I have deleted the name
+    When I save the medical record
+    Then I receive an error
 
-  @5.1.5
+  @5.1.4
+  Scenario: save patient with invlalid birthday
+    Given I have a role with persmissions to create a medical record
+    And I have the following medical record:
+      | name    | DOB        | weight  | height |
+      | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
+    And I entered the following invalid birthdate:
+      | birthdate         |
+      | -1940-09-13       |
+      | 98-12-15          |
+      | october 20th 1918 |
+    When I save the medical record
+    Then I receive an error
+
+  @5.1.4
+  Scenario: save patient with invalid weight
+    Given I have a role with persmissions to create a medical record
+    And I have the following medical record:
+      | name    | DOB        | weight  | height |
+      | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
+    And I entered the following invalid weight:
+      | weight |
+      | -1     |
+      | 0      |
+      | ninety |
+      | 2o0    |
+      | 1000   |
+    When I save the medical record
+    Then I receive an error
+
+  @5.1.4
+  Scenario: save patient with invalid height
+    Given I have a role with persmissions to create a medical record
+    And I have the following medical record:
+      | name    | DOB        | weight  | height |
+      | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
+    And I entered the following invalid height:
+      | height |
+      | -1     |
+      | 0      |
+      | five   |
+      | 6 feet |
+      | 1000   |
+    When I save the medical record
+    Then I receive an error
+
+  @5.1.5 @wip
   Scenario: explicitly download patient record
+    Given I have access to centralized database
+    And I have a role with permissions to create and edit a medical record
+    And I have a centralized database with a medical record
+    When I make updates to the  
 
   @5.1.5
   Scenario: implicitly upload patient records when connected to centralized database
