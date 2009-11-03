@@ -77,3 +77,9 @@ Feature: role system
 
   @3.2.3
   Scenario: log all actions for each user
+    Given the roles "Nurse, Doctor, Pharmacist" exist
+    And a user account with role "Nurse"
+    And a user account with role "Doctor"
+    And a user account with role "Pharmacist"
+    When I access all respective functions for each user account
+    Then I expect each action to be logged correctly
