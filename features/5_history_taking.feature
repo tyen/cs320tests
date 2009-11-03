@@ -123,12 +123,20 @@ Feature: History Taking
     When I save the medical record
     Then I receive an error
 
-  @5.1.5 @wip
+  @5.1.5
   Scenario: explicitly download patient record
-    Given I have access to centralized database
-    And I have a role with permissions to create and edit a medical record
-    And I have a centralized database with a medical record
-    When I make updates to the  
+    Given access to the centralized database
+    And an internet connection
+    And a role with permissions to create medical records
+    When I transfer a medical record from the centralized database
+    And disconnect the internet
+    And make five different edits to the medical records
+    And save the edits locally
+    And connect the internet
+    And upload the edited medical records to the centralized database
+    And download the medical records from the centralized database
+    Then the five different versions of the medical record can be accessed from the centralized database
+    And there is a difference between the versions of the medical records 
 
   @5.1.5
   Scenario: implicitly upload patient records when connected to centralized database
