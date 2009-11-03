@@ -72,7 +72,7 @@ Feature: role system
     When I login all users "user<i>" with password "secretpw<i>"
     Then the computer's user environment corresponds with the correctly assigned role
     When I remove all useres "user<i>"
-    Then I expect now to be able to login as "user<i>" with password "secretpw<i>"
+    Then I expect to not be able to login as "user<i>" with password "secretpw<i>"
 
 
   @3.2.3
