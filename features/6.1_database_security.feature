@@ -34,4 +34,4 @@ Feature: Database security of patient records
     And record the location of the records on the hard drive
     And connect to the centralized database
     And upload the data on the client machine to the centralized database
-    Then I expect all bytes from regions were record data was stored on the client machine to be zeroes
+    Then I expect all bytes from regions where record data was stored on the client machine to be zeroes
