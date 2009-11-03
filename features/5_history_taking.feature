@@ -196,6 +196,6 @@ Feature: History Taking
     And a role with permissions to create and edit medical records
     And I create the following partial medical record:
       |  name  |  DOB        |
-      |  Alex  |  10/21/1928 |
+      |  Alex  |  1928-10-21 |
     When I save the incomplete record locally and exit out of the medical record
     Then I should be able to restore the locally saved medical record
