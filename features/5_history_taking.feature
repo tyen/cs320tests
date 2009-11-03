@@ -36,4 +36,12 @@ Feature: History Taking
   Scenario: saving an partial record on a local machine
 
   @5.3.2
-  Scenario: recovering a partial record on a local machine
+  Scenario: restoring a partial medical record
+    Given I have access to the client database
+    And a role with permissions to create and edit medical records
+    And the following partial medical record:
+      |  name  |  DOB        |
+      |  Alex  |  10/21/1928 |
+    When I input the partial medical record data
+    And save the incomplete record locally
+    Then I should be able to restore the locally saved medical record
