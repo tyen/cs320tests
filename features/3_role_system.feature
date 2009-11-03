@@ -72,8 +72,14 @@ Feature: role system
     When I login all users "user<i>" with password "secretpw<i>"
     Then the computer's user environment corresponds with the correctly assigned role
     When I remove all useres "user<i>"
-    Then I expect now to be able to login as "user<i>" with password "secretpw<i>"
+    Then I expect to not be able to login as "user<i>" with password "secretpw<i>"
 
 
   @3.2.3
   Scenario: log all actions for each user
+    Given the roles "Nurse, Doctor, Pharmacist" exist
+    And a user account with role "Nurse"
+    And a user account with role "Doctor"
+    And a user account with role "Pharmacist"
+    When I access all respective functions for each user account
+    Then I expect each action to be logged correctly
