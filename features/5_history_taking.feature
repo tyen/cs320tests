@@ -3,10 +3,12 @@ Feature: History Taking
   I need to login
   In order to have access to the program
 
-  @5.1.1
+  @5.1.1 @wip
   Scenario: create a medical record
     Given I have access to client database
-    And I have a medical record
+    And I have a medical record with the following information:
+      | name | dob        |
+      | Joe  | 10/21/1967 |
     And I have a role with permissions to create a medical record
     When I create a new medical record
     Then the medical record is stored in the client database
