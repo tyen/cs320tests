@@ -31,18 +31,44 @@ Feature: role system
       | p1,p2,p3       |
 
   @3.2.1
-  Scenario: try all permitted actions for a user
-    Given there is a 
+  Scenario Outline: try all permitted actions for a user
+    Given the roles "Nurse, Doctor, Pharmacist" exist
+    And the roles "Nurse, Doctor, Pharmacist" have different permission sets
+    And there is a user <username> with the password <password>
+    And the user <username> has the role <role_name>
+    Then I execute all "create" privileges granted to <username>
+    And I execute all "read" privileges granted to <username>
+    And I execute all "update" privileges granted to <username>
+    And I execute all "delete" privileges granted to <username>
+    
+    Examples:
+      | role_name  | username | password  |
+      | Nurse	   | karen    | letmein   |
+      | Doctor	   | eric     | imadoctor |
+      | Pharmacist | ed	      | drugcheck |
 
   @3.2.1
-  Scenario: try all unpermitted actions for a user
+  Scenario Outline: try all unpermitted actions for a user
+    Given the roles "Nurse, Doctor, Pharmacist" exist
+    And the roles "Nurse, Doctor, Pharmacist" have different permission sets
+    And there is a user <username> with the password <password>
+    And the user <username> has the role <role_name>
+    Then I execute all "create" privileges not granted to <username>
+    And I execute all "read" privileges not granted to <username>
+    And I execute all "update" privileges not granted to <username>
+    And I execute all "delete" privileges not granted to <username>
+    
+    Examples:
+      | role_name  | username | password  |
+      | Nurse	   | karen    | letmein   |
+      | Doctor	   | eric     | imadoctor |
+      | Pharmacist | ed	      | drugcheck |
 
-
-  @3.2.2
+  @3.2.2 @wip
   Scenario: check that role assignment stays consistent
 
 
-  @3.2.3
+  @3.2.3 @wip
   Scenario: log all actions for each user
 
 
