@@ -37,7 +37,7 @@ Feature: patient management
     Then patient is written to centralized database
 
 
-  @4.3 (offline)
+  @4.3
   Scenario: search for patients in the client database when offline
     Given I have access to the client database
     And I am logged in as a "Nurse"
@@ -46,7 +46,7 @@ Feature: patient management
     And I search for 1000 different patients in the client database
     Then each search produces the correct <name>, <DOB> for the corresponding patient
 
-  @4.3 (online)
+  @4.3
   Scenario: search for patients in the centralized database when online
     Given I have access to the client database
     And I have access to the centralized database
@@ -55,6 +55,3 @@ Feature: patient management
     When I search for patient by <name>, <DOB>
     And I search for 1000 different patients in the centralized database
     Then each search produces the correct <name>, <DOB> for the corresponding patient
-
-
-  
