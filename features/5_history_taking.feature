@@ -6,16 +6,42 @@ Feature: History Taking
   @5.1.1 @wip
   Scenario: create a medical record
     Given I have access to client database
-    And I have a medical record with the following information:
-      | name | dob        |
+    And I have the following medical record:
+      | name | DOB        |
       | Joe  | 10/21/1967 |
     And I have a role with permissions to create a medical record
     When I create a new medical record
     Then the medical record is stored in the client database
   
   @5.1.2
-  Scenario: report dangerous drug interactions
-    Given
+  Scenario: adding drugs with serious interactions
+    Given I have a list containing critical drug interactions
+    And I have the following medical record:
+      | name | DOB        |
+      | Max  | 11/21/1954 |
+    And I have a role with permissions to create a medical record
+    When I add 2 drugs with serious interactions
+    Then I am alerted of a serious drug interaction
+
+  @5.1.2
+  Scenario: adding drug with minor interactions
+    Given I have a list containing critical drug interactions
+    And I have the following medical record:
+      | name | DOB        |
+      | Max  | 11/21/1954 |
+    And I have a role with permissions to create a medical record
+    When I add 2 drugs with minor interactions
+    Then I am not alerted of a serious drug interaction
+
+  @5.1.2
+  Scenario: adding drugs with no interactions
+    Given I have a list containing critical drug interactions
+    And I have the following medical record:
+      | name | DOB        |
+      | Max  | 11/21/1954 |
+    And I have a role with permissions to create a medical record
+    When I add 2 drugs with no interactions
+    Then I am not alerted of a serious drug interaction
 
   @5.1.3
   Scenario: catch dosage outside of acceptable dosage range
