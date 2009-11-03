@@ -5,8 +5,7 @@ Feature: Database security of patient records
 
 	@6.1.1
 	Scenario: Encryption of patient information in medical records
-		Given I have the installed software
-		And access to the database
+		Given I have access to the database
 		And my own independent implementation of the encrypted algorithm
 		When I create a medical record
 		And fill in the name field as "Bob"

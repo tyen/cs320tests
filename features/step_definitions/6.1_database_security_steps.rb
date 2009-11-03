@@ -1,32 +1,27 @@
-Given /^I have the installed software$/ do
-  true
-end
-
-Given /^access to the database$/ do
-  true
+Given /^I have access to the database$/ do
+  pending
 end
 
 Given /^my own independent implementation of the encrypted algorithm$/ do
-  true
+  pending
 end
 
 When /^I create a medical record$/ do
-  true
+  pending
 end
 
 When /^fill in the name field as "([^\"]*)"$/ do |arg1|
-  true
+  pending
 end
 
 When /^I encrypt the name field using the installed software$/ do
-  true
+  pending
 end
 
 When /^I encrypt the name field using my new independently implementation of the encryption algorithm$/ do
-  true
+  pending
 end
 
 Then /^I should see the encrypted name field equal the independently encrypted name field$/ do
-  true
+  pending
 end
-
