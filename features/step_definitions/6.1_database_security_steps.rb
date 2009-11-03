@@ -1,68 +1,68 @@
 # 6.1.1
 
 Given /^I have access to the centralized database$/ do
-  true
+  pending
 end
 
 Given /^my own independent implementation of the encrypted algorithm$/ do
-  true
+  pending
 end
 
 When /^I create a medical record$/ do
-  true
+  pending
 end
 
 When /^fill in the name field as "([^\"]*)"$/ do |arg1|
-  true
+  pending
 end
 
 When /^I encrypt the name field using the installed software$/ do
-  true
+  pending
 end
 
 When /^I encrypt the name field using my new independently implementation of the encryption algorithm$/ do
-  true
+  pending
 end
 
 Then /^I should see the encrypted name field equal the independently encrypted name field$/ do
-  true
+  pending
 end
 
 When /^I decrypt the name field in the installed software$/ do
-  true
+  pending
 end
 
 When /^I decrypt the name field in the independent implementation$/ do
-  true
+  pending
 end
 
 Then /^I should see both name fields equal$/ do
-  true
+  pending
 end
 
 # 6.1.2
 
 Given /^I have medical records with the following information:$/ do |table|
   # table is a Cucumber::Ast::Table
-  true
+  pending
 end
 
 When /^I create the medical records on the client machine$/ do
-  true
+  pending
 end
 
 When /^record the location of the records on the hard drive$/ do
-  true
+  pending
 end
 
 When /^connect to the centralized database$/ do
-  true
+  pending
 end
 
 When /^upload the data on the client machine to the centralized database$/ do
-  true
+  pending
 end
 
 Then /^I expect all bytes from regions were record data was stored on the client machine to be zeroes$/ do
-  true
+  pending
 end
