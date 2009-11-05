@@ -1,7 +1,7 @@
 Feature: History Taking
-  As a user
-  I need to login
-  In order to have access to the program
+  As a user ...
+  I need to ...
+  In order to ...
 
   @5.1.1
   Scenario: create a medical record
