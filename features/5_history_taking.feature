@@ -11,7 +11,7 @@ Feature: History Taking
       | Joe Bo | 1954-03-08 |
     And I have a role with permissions to create a medical record
     When I create a new medical record
-    Then the medical record is stored in the client database
+    Then the medical record exists in the client database
   
   @5.1.2
   Scenario: adding drugs with serious interactions
@@ -53,7 +53,7 @@ Feature: History Taking
 
   @5.1.3
   Scenario: input unreasonably low drug dosage
-    Given I have a role with persmissions to create a medical record
+    Given I have a role with permissions to create a medical record
     And I am logged into the system
     And I have started the medical interview process
     When I add a new drug with an unreasonably low dosage
@@ -61,7 +61,7 @@ Feature: History Taking
 
   @5.1.3
   Scenario: input unreasonably high drug dosage
-    Given I have a role with persmissions to create a medical record
+    Given I have a role with permissions to create a medical record
     And I am logged into the system
     And I have started the medical interview process
     When I add a new drug with an unreasonably high dosage
@@ -69,17 +69,17 @@ Feature: History Taking
     
   @5.1.4
   Scenario: save patient with blank name
-    Given I have a role with persmissions to create a medical record
+    Given I have a role with permissions to create a medical record
     And I have the following medical record:
       | name    | DOB        | weight  | height |
       | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
     And I have deleted the name
     When I save the medical record
-    Then I receive an error
+    Then I receive a validation error
 
   @5.1.4
-  Scenario: save patient with invlalid birthday
-    Given I have a role with persmissions to create a medical record
+  Scenario: save patient with invalid birthday
+    Given I have a role with permissions to create a medical record
     And I have the following medical record:
       | name    | DOB        | weight  | height |
       | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
@@ -89,11 +89,11 @@ Feature: History Taking
       | 98-12-15          |
       | october 20th 1918 |
     When I save the medical record
-    Then I receive an error
+    Then I receive a validation error
 
   @5.1.4
   Scenario: save patient with invalid weight
-    Given I have a role with persmissions to create a medical record
+    Given I have a role with permissions to create a medical record
     And I have the following medical record:
       | name    | DOB        | weight  | height |
       | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
@@ -105,11 +105,11 @@ Feature: History Taking
       | 2o0    |
       | 1000   |
     When I save the medical record
-    Then I receive an error
+    Then I receive a validation error
 
   @5.1.4
   Scenario: save patient with invalid height
-    Given I have a role with persmissions to create a medical record
+    Given I have a role with permissions to create a medical record
     And I have the following medical record:
       | name    | DOB        | weight  | height |
       | Max Tee | 1954-03-08 | 170 lbs | 5'10"  |
@@ -121,7 +121,7 @@ Feature: History Taking
       | 6 feet |
       | 1000   |
     When I save the medical record
-    Then I receive an error
+    Then I receive a validation error
 
   @5.1.5
   Scenario: explicitly download patient record
@@ -172,8 +172,13 @@ Feature: History Taking
   @5.3.1
   Scenario: saving an partial record on a local machine
     Given I have access to the client database
-    And a role with permissions to create a medical record
-    And I create the following partial medical record:
+    And I have a role with permissions to create a medical record
+    And I create a partial medical record with name <name> and DOB <DOB>
+    When I attempt to submit the partial medical record
+    Then the partial medical record is not submitted
+    And the record is saved locally with the incomplete area flagged
+
+    Examples:
       |  name   |  DOB        |
       |  Alex   |  1928-10-21 |
       |  Bob    |  1928-10-22 |
@@ -185,17 +190,14 @@ Feature: History Taking
       |  Joe    |  1928-10-31 |
       |  Kim    |  1928-10-11 |
       |  Jim    |  1928-10-21 |
-    When I attempt to submit each medical record
-    Then each medical record is not submitted
-    And each record is saved locally with incomplete area flagged
-    
 
   @5.3.2
   Scenario: restoring a partial medical record
     Given I have access to the client database
-    And a role with permissions to create and edit medical records
+    And I have a role with permissions to create and edit medical records
     And I create the following partial medical record:
       |  name  |  DOB        |
       |  Alex  |  1928-10-21 |
-    When I save the incomplete record locally and exit out of the medical record
+    When I save the incomplete record locally
+    And I exit out of the medical record
     Then I should be able to restore the locally saved medical record
