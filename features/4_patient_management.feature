@@ -4,7 +4,8 @@ Feature: patient management
   In order to improve efficiency of medical history tracking
 
   @4.1.1
-  Scenario: download patient and associated records from centralized database
+  Scenario Outline: download patient and associated records from 
+centralized database
     Given I have access to the centralzed database
     And a patient named <name> who was born on <DOB> is in the centralized database with ID <unique_id>
     When I search for a patient by name <name> and birth date <DOB>
@@ -51,7 +52,8 @@ Feature: patient management
       | John Smith | 1978-04-18 |
 
   @4.3
-  Scenario: search for patients in the centralized database when online
+  Scenario Outline: search for patients in the centralized database when 
+online
     Given I have access to the centralized database
     And I am logged in as a "Nurse"
     And 2000 patients are in the centralized database

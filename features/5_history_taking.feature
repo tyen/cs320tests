@@ -170,7 +170,7 @@ Feature: History Taking
     And all the data was read and written within the maximum time allowed
 
   @5.3.1
-  Scenario: saving an partial record on a local machine
+  Scenario Outline: saving an partial record on a local machine
     Given I have access to the client database
     And I have a role with permissions to create a medical record
     And I create a partial medical record with name <name> and DOB <DOB>
