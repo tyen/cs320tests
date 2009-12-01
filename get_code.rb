@@ -1,22 +1,13 @@
-#Checkout code from repository
+svn_url = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/"
+src_folder = "teama_src"
 
-system 'svn checkout "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/"'
-
-#if exit code implies error
-if $? != 0
-  print "error during checkout\n"
-  exit
+def run(cmd)
+	if not system(cmd)
+		puts "error on command: #{cmd}"
+		exit
+	end
 end
 
-#Compile Java Code
-system 'javac src/*.java'
-
-#if exit code implies error
-if $? != 0
-  print "error during compile\n"
-  exit
-end
-
-#Run cumber tests
-
-system 'cucumber'
+run("svn checkout #{svn_url} #{src_folder}")
+run("javac #{src_folder}/*.java")
+run("cucumber")
