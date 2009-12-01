@@ -16,15 +16,15 @@ centralized database
     Examples:
       |     name     |     DOB    | unique_id |
       | James Smith  | 1978-06-11 | 1         |
-      | Ian Blane    | 1999-11-05 | 2	      |
-      | Luffy Darell | 2004-02-03 | 3	      |
-      | Jimmy Leo    | 1964-01-18 | 4	      |
-      | Mike Ike     | 1980-08-29 | 5	      |
-      | Vanilla Ice  | 1975-04-12 | 6	      |
-      | Simon Lee    | 2009-05-05 | 7	      |
-      | Bob Builder  | 2004-09-01 | 8	      |
-      | Fox McCloud  | 1989-06-08 | 9	      |
-      | Hello Kitty  | 1994-10-26 | 10	      |
+      | Ian Blane    | 1999-11-05 | 2	       |
+      | Luffy Darell | 2004-02-03 | 3	       |
+      | Jimmy Leo    | 1964-01-18 | 4	       |
+      | Mike Ike     | 1980-08-29 | 5	       |
+      | Vanilla Ice  | 1975-04-12 | 6	       |
+      | Simon Lee    | 2009-05-05 | 7	       |
+      | Bob Builder  | 2004-09-01 | 8	       |
+      | Fox McCloud  | 1989-06-08 | 9	       |
+      | Hello Kitty  | 1994-10-26 | 10	       |
 
 
   @4.2

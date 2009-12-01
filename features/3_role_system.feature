@@ -21,13 +21,12 @@ Feature: role system
 
     Examples:
       | permission_set |
-      | 	       |
-      | p1	       |
-      | p2	       |
-      | p3	       |
-      | p1,p2	       |
-      |	p1,p3	       |
-      | p2,p3	       |
+      | p1	           |
+      | p2	           |
+      | p3	           |
+      | p1,p2	        |
+      | p1,p3	        |
+      | p2,p3	        |
       | p1,p2,p3       |
 
   @3.2.1
@@ -43,8 +42,8 @@ Feature: role system
     
     Examples:
       | role_name  | username | password  |
-      | Nurse	   | karen    | letmein   |
-      | Doctor	   | eric     | imadoctor |
+      | Nurse	    | karen    | letmein   |
+      | Doctor	    | eric     | imadoctor |
       | Pharmacist | ed	      | drugcheck |
 
   @3.2.1
@@ -60,8 +59,8 @@ Feature: role system
     
     Examples:
       | role_name  | username | password  |
-      | Nurse	   | karen    | letmein   |
-      | Doctor	   | eric     | imadoctor |
+      | Nurse	    | karen    | letmein   |
+      | Doctor	    | eric     | imadoctor |
       | Pharmacist | ed	      | drugcheck |
 
   @3.2.2
