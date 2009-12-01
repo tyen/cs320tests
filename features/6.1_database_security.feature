@@ -20,16 +20,16 @@ Feature: Database security of patient records
   Scenario: Zeroing of local information after uploading data from the client machine to the centralized database
     Given I have access to the centralized database
     And I have medical records with the following information:
-      |  name      |   DOB    |
-      |  Eachan    |  9/8/49  |
-      |  Eamnonn   |  9/8/49  |
-      |  Eamon     |  9/8/49  |
-      |  Earl      |  9/8/49  |
-      |  Earnest   |  9/8/49  |
-      |  Earvin    |  9/8/49  |
-      |  Eaton     |  9/8/49  |
-      |  Eban      |  9/8/49  |
-      |  Ebenezer  |  9/8/49  |
+      |  name      |   DOB      |
+      |  Eachan    |  1949-9-8  |
+      |  Eamnonn   |  1949-9-8  |
+      |  Eamon     |  1949-9-8  |
+      |  Earl      |  1949-9-8  |
+      |  Earnest   |  1949-9-8  |
+      |  Earvin    |  1949-9-8  |
+      |  Eaton     |  1949-9-8  |
+      |  Eban      |  1949-9-8  |
+      |  Ebenezer  |  1949-9-8  |
     When I create the medical records on the client machine
     And record the location of the records on the hard drive
     And connect to the centralized database
