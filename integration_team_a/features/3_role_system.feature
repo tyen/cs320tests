@@ -4,7 +4,7 @@ Feature: role system
   In order to ensure the system is used securely
 
   @3.1
-  Scenario outline: create roles with all possible permission sets
+  Scenario Outline: create roles with all possible permission sets
     Given there is a user "admin" with password "letmein"
     And the user "admin" has the role "System Administrator"
     And the following permissions exist:

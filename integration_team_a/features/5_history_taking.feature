@@ -1,7 +1,7 @@
 Feature: History Taking
-  As a user ...
-  I need to ...
-  In order to ...
+  As a user
+  I need to make a lot of changes to the system
+  In order to take patient history
 
   @5.1.1
   Scenario: create a medical record

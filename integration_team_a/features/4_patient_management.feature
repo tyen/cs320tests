@@ -27,7 +27,7 @@ Feature: patient management
 
 
   @4.2
-  Scenario: creating new patient that doesn't exist in centralized database
+  Scenario Outline: creating new patient that doesn't exist in centralized database
     Given I have access to the client database
     And I have access to the centralized database
     And I am logged in as a "Nurse"
