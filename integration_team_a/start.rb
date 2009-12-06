@@ -8,6 +8,13 @@ def run(cmd)
 	end
 end
 
-run("svn checkout #{svn_url} #{src_folder}")
+run("svn export #{svn_url} #{src_folder}")
+
+# Team A needs to provide a jar file without Test classes
+run("rm -r #{src_folder}/Test*")
+run("rm #{src_folder}/StorageDummy.java")
+run("rm #{src_folder}/StorageCopy.java")
+run("rm #{src_folder}/StorageTest.java")
 run("javac #{src_folder}/*.java")
-run("cucumber")
+
+run("ant cucumber")

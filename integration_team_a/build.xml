@@ -15,8 +15,6 @@
   </target>
 
   <target name="cucumber" depends="compile-steps" description="Run Cucumber">
-    <mkdir dir="target/junit-report"/>
-
     <java classname="org.jruby.Main" fork="true" failonerror="true">
       <classpath>
         <fileset dir="lib">
