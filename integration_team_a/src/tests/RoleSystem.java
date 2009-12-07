@@ -7,27 +7,32 @@ import static org.junit.Assert.*;
 public class RoleSystem {
 	@Given("^there is a user \"([^\"]*)\" with password \"([^\"]*)\"$")
 	@Pending
-	public void thereIsAUserAdminWithPasswordLetmein(String arg1, String arg2) {
+	public void thereIsAUserAdminWithPasswordLetmein(String user, String password) {
+		
 	}
 	
 	@Given("^the user \"([^\"]*)\" has the role \"([^\"]*)\"$")
 	@Pending
-	public void theUserAdminHasTheRoleSystemAdministrator(String arg1, String arg2) {
+	public void theUserAdminHasTheRoleSystemAdministrator(String user, String userType) {
 	}
 	
 	@Given("^the following permissions exist:$")
 	@Pending
-	public void theFollowingPermissionsExistWithTable(cuke4duke.Table table) {
+	public void theFollowingPermissionsExistWithTable(cuke4duke.Table table) throws Exception {
+		//permission weren't implemented in Team A's code
+		throw new Exception();
 	}
 	
 	@When("^I create the role \"([^\"]*)\"$")
 	@Pending
-	public void iCreateTheRoleNurse(String arg1) {
+	public void iCreateTheRoleNurse(String role) {
 	}
 	
 	@When("^grant permissions p1 to the role \"([^\"]*)\"$")
 	@Pending
-	public void grantPermissionsP1ToTheRoleNurse(String arg1) {
+	public void grantPermissionsP1ToTheRoleNurse(String arg1) throws Exception {
+		//permission weren't implemented in Team A's code
+		throw new Exception();
 	}
 	
 	@When("^remove all permissions from role \"([^\"]*)\"$")
