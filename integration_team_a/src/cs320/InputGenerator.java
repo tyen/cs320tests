@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-class InputGenerator {
+public class InputGenerator {
 	private static Random generator;
 	private static ArrayList<Character> alpha = new ArrayList<Character>();
 	private static LinkedList<Drug> generatedDrugs = new LinkedList<Drug>();

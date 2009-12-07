@@ -1,6 +1,7 @@
 package tests;
 
 import cuke4duke.*;
+import cs320.*;
 import static org.junit.Assert.*;
 
 public class PatientManagement {

@@ -150,7 +150,7 @@ public class PatientRecord extends AbstractModule {
 	 * @return a patient record populated with data from storage matching the
 	 *         input patient
 	 */
-	static PatientRecord createPatientRecord(PatientInfo patient) {
+	public static PatientRecord createPatientRecord(PatientInfo patient) {
 		return (patient == null) ? new PatientRecord() : new PatientRecord(
 				patient);
 	}
@@ -178,7 +178,7 @@ public class PatientRecord extends AbstractModule {
 	 * @return true: Note was successfully added to the end of the List of
 	 *         Notes; false: otherwise.
 	 */
-	boolean AddNote(String note) {
+	public boolean AddNote(String note) {
 		this.NotesList.add(note);
 		return true;
 	}
@@ -195,7 +195,7 @@ public class PatientRecord extends AbstractModule {
 	 * @return true: Drug was added to the PatientRecord List of Drugs; false:
 	 *         otherwise.
 	 */
-	boolean AddDrug(Drug drug) {
+	public boolean AddDrug(Drug drug) {
 		this.DrugsList.add(drug);
 		return true;
 
@@ -213,7 +213,7 @@ public class PatientRecord extends AbstractModule {
 	 * @return true: Allergy object was added to PatientRecord List of
 	 *         Allergies; false: otherwise.
 	 */
-	boolean AddAllergy(Allergy allergy) {
+	public boolean AddAllergy(Allergy allergy) {
 		this.AllergyList.add(allergy);
 		return true;
 	}
@@ -227,7 +227,7 @@ public class PatientRecord extends AbstractModule {
 	 *         otherwise
 	 */
 	@SuppressWarnings("unchecked")
-	boolean UpdateIterable(LinkedList<AbstractModule> RemoveList) {
+	public boolean UpdateIterable(LinkedList<AbstractModule> RemoveList) {
 
 		//Base Case
 		if (RemoveList.isEmpty())
@@ -266,7 +266,7 @@ public class PatientRecord extends AbstractModule {
 	 * @param RemoveList
 	 * @return 
 	 */
-	boolean UpdateNotes(LinkedList<String> RemoveList) {
+	public boolean UpdateNotes(LinkedList<String> RemoveList) {
 		return NotesList.removeAll(RemoveList);
 	}
 
@@ -299,7 +299,7 @@ public class PatientRecord extends AbstractModule {
 	 * @param void
 	 * @return true: Summary is successfully generated; false: otherwise.
 	 */
-	boolean GenerateQuestionSet() {
+	public boolean GenerateQuestionSet() {
 		
 		QuestionSet newQuestionSet = 
 			new QuestionSet(Storage.GetInstance().Retrieve("cs320.QuestionSet", null).get(0));
@@ -414,7 +414,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return list of drugs already added by user
 	 */
-	LinkedList<Drug> GetDrugs() {
+	public LinkedList<Drug> GetDrugs() {
 		return this.DrugsList;
 	}
 
@@ -425,7 +425,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return list of notes
 	 */
-	LinkedList<String> GetNotes() {
+	public LinkedList<String> GetNotes() {
 		return this.NotesList;
 	}
 
@@ -437,7 +437,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return Patient
 	 */
-	PatientInfo GetPatientInfo() {
+	public PatientInfo GetPatientInfo() {
 		return this.Patient;
 	}
 
@@ -448,7 +448,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return The List of Allergies.
 	 */
-	LinkedList<Allergy> GetAllergies() {
+	public LinkedList<Allergy> GetAllergies() {
 		return this.AllergyList;
 	}
 
@@ -459,7 +459,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return the User who created this PatientRecord
 	 */
-	String GetCreatorUser() {
+	public String GetCreatorUser() {
 		return this.RecordCreator;
 	}
 
@@ -471,7 +471,7 @@ public class PatientRecord extends AbstractModule {
 	 *
 	 * @return the User who last modified this Patient Record
 	 */
-	String GetLastModifiedUser() {
+	public String GetLastModifiedUser() {
 		return this.LastModifiedBy;
 	}
 
@@ -480,7 +480,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return the QuestionSet that is contained by the PatientRecord
 	 */
-	QuestionSet GetQuestions() {
+	public QuestionSet GetQuestions() {
 		return this.Questions;
 	}
 
@@ -489,7 +489,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return DateWrapper
 	 */
-	DateWrapper GetDateCreated() {
+	public DateWrapper GetDateCreated() {
 		return this.DateCreated;
 	}
 
@@ -498,7 +498,7 @@ public class PatientRecord extends AbstractModule {
 	 * 
 	 * @return DateWrapper
 	 */
-	DateWrapper GetDateLastModified() {
+	public DateWrapper GetDateLastModified() {
 		return this.DateLastModified;
 	}
 
@@ -506,7 +506,7 @@ public class PatientRecord extends AbstractModule {
 	 * Return the AppendOnly Flag.
 	 * @return AppendOnly
 	 */
-	boolean GetAppendOnly() {
+	public boolean GetAppendOnly() {
 		return this.AppendOnly;
 	}
 
@@ -514,7 +514,7 @@ public class PatientRecord extends AbstractModule {
 	 * Return the SummaryMode Flag.
 	 * @return SummaryMode
 	 */
-	boolean GetSummaryMode() {
+	public boolean GetSummaryMode() {
 		return this.SummaryMode;
 	}
 

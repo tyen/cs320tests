@@ -30,7 +30,7 @@ public class Allergy extends AbstractModule {
 	 * The Allergy module's private internal variables will 
 	 * be set to the parameters given in the function call.
 	 */
-	Allergy(String Cause, String Reaction){
+	public Allergy(String Cause, String Reaction){
 		this.Cause = Cause;
 		this.Reaction = Reaction;
 	}
