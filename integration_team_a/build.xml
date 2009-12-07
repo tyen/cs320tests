@@ -13,6 +13,19 @@
       </classpath>
     </javac>
   </target>
+	
+<target name="junit" depends="compile-steps" description="JUnit">
+	<junit printsummary="yes" haltonfailure="yes">
+	  <formatter type="plain"/>
+
+	  <batchtest fork="no" todir="${reports.tests}">
+	    <fileset dir="${src.tests}">
+	      <include name="**/*Test*.java"/>
+	      <exclude name="**/AllTests.java"/>
+	    </fileset>
+	  </batchtest>
+	</junit>
+</target>
 
   <target name="cucumber" depends="compile-steps" description="Run Cucumber">
     <java classname="org.jruby.Main" fork="true" failonerror="true">
