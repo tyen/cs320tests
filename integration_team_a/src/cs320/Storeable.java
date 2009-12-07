@@ -18,12 +18,12 @@ public interface Storeable {
 	 * as complete and append-only.
 	 * @return
 	 */
-	boolean Store();
+	public boolean Store();
 	
 	/**
 	 * Saving allows the state of module to be written to the Data Repository via
 	 * the Storage Module.
 	 * @return
 	 */
-	boolean Save();
+	public boolean Save();
 }
