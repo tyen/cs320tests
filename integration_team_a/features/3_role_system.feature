@@ -65,7 +65,7 @@ Feature: role system
 
   @3.2.2
   Scenario: check that role assignment stays consistent
-    Given the roles "Nurse, Doctor, Pharmacist" exist
+    Given the roles "nurse, doctor, pharmacist" exist
     And "7500" users with username "user<i>" and password "secretpw<i>", where <i> ranges from 1 to 7500
     And "user<i>" has a randomly selected role <role_name>
     When I login all users "user<i>" with password "secretpw<i>"
