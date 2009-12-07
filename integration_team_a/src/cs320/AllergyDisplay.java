@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;

@@ -1,3 +1,5 @@
+package cs320;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial")

@@ -1,3 +1,5 @@
+package cs320;
+
 import java.util.ArrayList;
 import javax.swing.JFrame;
 

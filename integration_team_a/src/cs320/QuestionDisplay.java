@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.Font;
 import java.awt.Rectangle;
 import javax.swing.JLabel;

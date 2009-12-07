@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 

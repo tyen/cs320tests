@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import javax.swing.JButton;

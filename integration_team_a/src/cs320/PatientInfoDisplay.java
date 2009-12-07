@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.BorderFactory;

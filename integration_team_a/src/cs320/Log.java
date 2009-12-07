@@ -3,6 +3,8 @@
  * log records any interaction with the Storage Module. 
  */
 
+package cs320;
+
 import java.util.*;
 import java.util.Date;
 import java.io.*;
