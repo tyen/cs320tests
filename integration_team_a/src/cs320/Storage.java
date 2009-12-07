@@ -41,6 +41,14 @@ public class Storage{
 	};
 
 	Log log;
+	
+	public boolean GetServerConnected() {
+		return ServerConnected;
+	}
+	
+	public boolean GetClientConnected() {
+		return ClientConnected;
+	}
 
 	/**
 	 * 
@@ -68,7 +76,7 @@ public class Storage{
 	 * the connected flag will be set for the appropriate data repository 
 	 * (either ServerConnected or ClientConnected).
 	 */
-	void Connect() {
+	public void Connect() {
 		if (!ServerConnected) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -105,7 +113,7 @@ public class Storage{
 	 * @param Input
 	 * @return
 	 */
-	List<HashMap<String, String>> Retrieve(String Relation,
+	public List<HashMap<String, String>> Retrieve(String Relation,
 			Map<String, String> Input) { 
 
 		// write list of fields to log
@@ -227,7 +235,7 @@ public class Storage{
 	 * @param Input
 	 * @return
 	 */
-	boolean Exist(String Relation, Map<String, String> Input) {
+	public boolean Exist(String Relation, Map<String, String> Input) {
 		Connect();
 
 		// write list of fields to log
@@ -283,7 +291,7 @@ public class Storage{
 	 * @param Input
 	 * @return
 	 */
-	boolean Save(String Relation, Map<String, String> Input) {
+	public boolean Save(String Relation, Map<String, String> Input) {
 
 		// write list of fields to log
 		Object[] fields = Input.keySet().toArray();
@@ -330,7 +338,7 @@ public class Storage{
 	 * successful it returns True, otherwise it returns False.
 	 * @return True if Sync was succesful, false otherwise
 	 */
-	boolean Push() {
+	public boolean Push() {
 		List<HashMap<String, String>> ReturnList = new ArrayList<HashMap<String, String>>();// What is returned from
 		// retrieve
 		boolean allPushed = true;// for testing if all records pushed
@@ -433,7 +441,7 @@ public class Storage{
 	 * @return True if success, false otherwise.
 	 * 
 	 */
-	boolean Store(String PatientId) {
+	public boolean Store(String PatientId) {
 		// if(PatientId==null){
 		// return false;
 		// }
@@ -465,7 +473,7 @@ public class Storage{
 	 * @param relation
 	 * @return
 	 */
-	boolean Sync(String relation) {
+	public boolean Sync(String relation) {
 		Connect();
 		if (!ClientConnected || !ServerConnected) {
 			return false;
@@ -657,7 +665,7 @@ public class Storage{
 	/**
 	 * Close all open db connections.
 	 */
-	void Close() {
+	public void Close() {
 		if (ServerConnection != null) {
 			try {
 				ServerResults.close();

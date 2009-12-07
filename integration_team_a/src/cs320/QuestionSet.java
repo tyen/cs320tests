@@ -45,7 +45,7 @@ public class QuestionSet implements Displayable {
      * TEST CONSTRUCTER. Has package access, not public access.
      * @param StaticQuestionSet The default question set to use.
      */
-    QuestionSet(List<String> StaticQuestionSet) {
+    public QuestionSet(List<String> StaticQuestionSet) {
     	this.StaticQuestionSet = StaticQuestionSet;
 		this.DynamicQuestionSet = new LinkedList<String>();
     }
