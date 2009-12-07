@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.Point;
 
 @SuppressWarnings("serial")

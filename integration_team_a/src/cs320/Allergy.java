@@ -1,3 +1,5 @@
+package cs320;
+
 import java.util.*;
 /** 
  *The Allergy module encapsulates a description of an allergy. 

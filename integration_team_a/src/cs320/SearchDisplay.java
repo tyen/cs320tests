@@ -1,3 +1,5 @@
+package cs320;
+
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
