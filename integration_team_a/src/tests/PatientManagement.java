@@ -1,28 +1,63 @@
 package tests;
 
+import java.util.HashMap;
+
 import cuke4duke.*;
 import cs320.*;
 import static org.junit.Assert.*;
 
 public class PatientManagement {
+	Storage storage = Storage.GetInstance();
+	Search search = Search.GetInstance();
+	
 	@Given("^I have access to the centralized database$")
-	@Pending
+	//@Pending
 	public void iHaveAccessToTheCentralizedDatabase() {
+		Storage.GetInstance().Connect();
+		assertTrue(Storage.GetInstance().GetServerConnected());
 	}
 	
 	@Given("^a patient named James Smith who was born on 1978\\-06\\-11 is in the centralized database with ID 1$")
 	@Pending
 	public void aPatientNamedJamesSmithWhoWasBornOn19780611IsInTheCentralizedDatabaseWithID1() {
+		HashMap<String, String> patientMap = new HashMap<String,String>();
+		patientMap.put("firstName", "James");
+		patientMap.put("lastName", "Smith");
+		patientMap.put("dateOfBirth", new DateWrapper(1978, 6, 11).toString(false,false));
+		patientMap.put("medicalRecordNumber", "1");
+		
+		assertTrue(storage.Save("cs320.patient", patientMap));
+		assertTrue(storage.Push());
+		assertTrue(storage.Exist("cs320.patient", patientMap));
 	}
 	
+	PatientInfo patient1 = null;
 	@When("^I search for a patient by name James Smith and birth date 1978\\-06\\-11$")
 	@Pending
 	public void iSearchForAPatientByNameJamesSmithAndBirthDate19780611() {
+		String firstName = "James";
+		String lastName = "Smith";
+		DateWrapper date = new DateWrapper(1978, 6, 11);
+		String dateString = date.toString(false,false);
+		
+		Search search = Search.GetInstance();
+		search.SearchForPatient(firstName, lastName, date);
+		
+		for (PatientInfo info : search.getSearchResults()) {
+			if (info.GetFirstName() == firstName
+				&& info.GetLastName() == lastName
+				&& info.GetDateOfBirth().toString(false,false) == dateString) {
+				patient1 = info;
+				break;
+			}
+		}
 	}
 	
 	@Then("^patient 1 is in the client database$")
 	@Pending
 	public void patient1IsInTheClientDatabase() {
+		assertNotNull(patient1);
+		assertTrue(storage.Exist("cs320.patient",patient1.toHashMap()));
 	}
 	
 	@Then("^the patient 1's associated medical records are in the client database$")
