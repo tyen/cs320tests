@@ -1,133 +1,183 @@
-<project xmlns:ivy="antlib:org.apache.ivy.ant" name="CS320 Team A Integration Tests" default="cucumber" basedir=".">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="CS321 Team A Integration Tests" default="cucumber" basedir=".">
+
+<!-- Setting Propert Names -->
   <property name="dotgem.parent" value="${basedir}/lib"/>
   <property name="gem.home" value="${dotgem.parent}/.gem"/>
   <property name="cucumber.bin" value="${gem.home}/bin/cucumber"/>
-
-  <target name="compile-steps" description="Compile test classes">
-    <mkdir dir="target/test-classes"/>
-    <javac srcdir="src/" destdir="target/test-classes">
-      <classpath>
-        <fileset dir="lib">
-          <include name="**/*.jar"/>
-        </fileset>
-      </classpath>
-    </javac>
-  </target>
+  <property name="src" value="src/" />
+  <property name="lib" value="lib/" />
+ <!-- <property name="classes" value="./target/test-classes/edu/cs320/project/" />-->
+ <!-- <property name="test.class.name" value="./target/test-classes/edu/cs320/project/AllTests.class" />-->
+  <property name="test.reports" value="./target/reports/" />  	
+  <property name="ant.home" value="/home/tyen/apache-ant-1.7.1"/>
 	
-<target name="junit" depends="compile-steps" description="JUnit">
-	<junit printsummary="yes" haltonfailure="yes">
-	  <formatter type="plain"/>
+<!-- Setting classpath for Junit to use -->
+<path id="test.classpath">
+  <pathelement location="${classes}" />
+  <pathelement location="${lib}/junit-4.7.jar"/>
+	<pathelement path="${ant.home}/lib/xml-apis.jar:${ant.home}/lib/xercesImpl.jar"/>
 
-	  <batchtest fork="no" todir="${reports.tests}">
-	    <fileset dir="${src.tests}">
-	      <include name="**/*Test*.java"/>
-	      <exclude name="**/AllTests.java"/>
-	    </fileset>
-	  </batchtest>
-	</junit>
+  <fileset dir="${lib}">
+	 <include name="**/*.jar"/>
+  </fileset>
+	<pathelement path="${java.class.path}" />
+</path>
+
+<!-- Compile the Java -->
+<target name="compile-steps" description="Compile test classes">
+	 <mkdir dir="target/test-classes"/>
+	 <javac srcdir="src/" destdir="target/test-classes">
+		<classpath>
+		  <fileset dir="lib">
+			 <include name="**/*.jar"/>
+		  </fileset>
+		</classpath>
+	 </javac>
+  </target>
+ 
+<!-- Running the JUnit stuff -->
+<target name="test-html" depends="compile-steps">
+  <junit fork="no" printsummary="yes" haltonfailure="no">
+	 <batchtest fork="no" todir="${test.reports}" >
+		<fileset dir="/home/tyen/cs320/team_t/integration_team_a/target/test-classes/edu/cs320/project">
+		 <!-- <include name="*Test*.class" />
+		  <exclude name="**/AllTests.class" />-->
+			<include name="TestAllergy.class"/>
+		</fileset>
+	 </batchtest>
+	 <formatter type="xml" />
+	 <classpath refid="test.classpath" />
+  </junit>
+
+  <junitreport todir="${test.reports}">
+	 <fileset dir="${test.reports}">
+		<include name="TEST-*.xml" />
+	 </fileset>
+	 <report todir="${test.reports}" />
+  </junitreport>
+</target>
+	  
+
+
+<!-- OLD
+<target name="junit" depends="compile-steps" description="JUnit">
+<junit printsummary="yes" haltonfailure="yes">
+<formatter type="plain"/>
+ 
+<batchtest fork="no" todir="${reports.tests}">
+<fileset dir="${src.tests}">
+<include name="**/*Test*.java"/>
+<exclude name="**/AllTests.java"/>
+</fileset>
+</batchtest>
+</junit>
 </target>
 
+-->
+ 
   <target name="cucumber" depends="compile-steps" description="Run Cucumber">
-    <java classname="org.jruby.Main" fork="true" failonerror="true">
-      <classpath>
-        <fileset dir="lib">
-          <include name="**/*.jar"/>
-        </fileset>
-        <pathelement location="target/test-classes"/>
-      </classpath>
-      <env key="GEM_PATH" value="${gem.home}"/>
-      <jvmarg value="-Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory"/>
-      <arg value="-r"/>
-      <arg value="cuke4duke"/>
-      <arg value="${cucumber.bin}"/>
-      <arg value="--require"/>
-      <arg value="target/test-classes"/>
-      <arg value="--color"/>
-      <arg value="--format"/>
-      <arg value="pretty"/>
-      <arg value="--format"/>
-      <arg value="html"/>
-      <arg value="--out"/>
-      <arg value="target/results.html"/>
-      <arg value="features"/>
-    </java>
+	 <java classname="org.jruby.Main" fork="true" failonerror="true">
+		<classpath>
+		  <fileset dir="lib">
+			 <include name="**/*.jar"/>
+		  </fileset>
+		  <pathelement location="target/test-classes"/>
+		</classpath>
+		<env key="GEM_PATH" value="${gem.home}"/>
+		<jvmarg value="-Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory"/>
+		<arg value="-r"/>
+		<arg value="cuke4duke"/>
+		<arg value="${cucumber.bin}"/>
+		<arg value="--require"/>
+		<arg value="target/test-classes"/>
+		<arg value="--color"/>
+		<arg value="--format"/>
+		<arg value="pretty"/>
+		<arg value="--format"/>
+		<arg value="html"/>
+		<arg value="--out"/>
+		<arg value="target/results.html"/>
+		<arg value="features"/>
+	 </java>
   </target>
-
+ 
   <target name="cucumber-nocolor" depends="compile-steps" description="Run Cucumber">
-    <java classname="org.jruby.Main" fork="true" failonerror="true">
-      <classpath>
-        <fileset dir="lib">
-          <include name="**/*.jar"/>
-        </fileset>
-        <pathelement location="target/test-classes"/>
-      </classpath>
-      <env key="GEM_PATH" value="${gem.home}"/>
-      <jvmarg value="-Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory"/>
-      <arg value="-r"/>
-      <arg value="cuke4duke"/>
-      <arg value="${cucumber.bin}"/>
-      <arg value="--require"/>
-      <arg value="target/test-classes"/>
-      <arg value="--format"/>
-      <arg value="pretty"/>
-      <arg value="--format"/>
-      <arg value="html"/>
-      <arg value="--out"/>
-      <arg value="target/results.html"/>
-      <arg value="features"/>
-    </java>
+	 <java classname="org.jruby.Main" fork="true" failonerror="true">
+		<classpath>
+		  <fileset dir="lib">
+			 <include name="**/*.jar"/>
+		  </fileset>
+		  <pathelement location="target/test-classes"/>
+		</classpath>
+		<env key="GEM_PATH" value="${gem.home}"/>
+		<jvmarg value="-Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory"/>
+		<arg value="-r"/>
+		<arg value="cuke4duke"/>
+		<arg value="${cucumber.bin}"/>
+		<arg value="--require"/>
+		<arg value="target/test-classes"/>
+		<arg value="--format"/>
+		<arg value="pretty"/>
+		<arg value="--format"/>
+		<arg value="html"/>
+		<arg value="--out"/>
+		<arg value="target/results.html"/>
+		<arg value="features"/>
+	 </java>
   </target>
-
+ 
   <target name="install-deps" depends="download-jars, install-gems" description="Install all dependencies"/>
-
+ 
   <target name="download-jars" description="Download jars with ivy">
-    <ivy:retrieve/>
+	 <ivy:retrieve/>
   </target>
-
+ 
   <target name="install-gems" description="Install gems">
-    <install-gem gem="cucumber" version="0.4.4" source="http://gems.rubyforge.org/" />
-    <install-gem gem="rspec" version="1.2.9" />
+	 <install-gem gem="cucumber" version="0.4.4" source="http://gems.rubyforge.org/" />
+	 <install-gem gem="rspec" version="1.2.9" />
   </target>
-
+ 
   <macrodef name="install-gem">
-    <attribute name="gem"/>
-    <attribute name="version"/>
-    <attribute name="source" default="http://gems.rubyforge.org/"/>
-    
-    <sequential>
-      <java classname="org.jruby.Main" fork="true" failonerror="true">
-        <classpath>
-          <fileset dir="lib">
-            <include name="**/jruby*.jar"/>
-          </fileset>
-        </classpath>
-        <!-- Gems will go into lib/.gems --> 
-        <env key="HOME" value="${dotgem.parent}"/>
-        <arg value="-S"/>
-        <arg value="gem"/>
-        <arg value="install"/>
-        <arg value="--no-ri"/>
-        <arg value="--no-rdoc"/>
-        <arg value="--install-dir"/>
-        <arg value="${gem.home}"/>
-        <arg value="--source"/>
-        <arg value="@{source}"/>
-        <arg value="--version"/>
-        <arg value="@{version}"/>
-        <arg value="@{gem}"/>
-      </java>
-    </sequential>
+	 <attribute name="gem"/>
+	 <attribute name="version"/>
+	 <attribute name="source" default="http://gems.rubyforge.org/"/>
+	 
+	 <sequential>
+		<java classname="org.jruby.Main" fork="true" failonerror="true">
+		  <classpath>
+			 <fileset dir="lib">
+				<include name="**/jruby*.jar"/>
+			 </fileset>
+		  </classpath>
+		  <!-- Gems will go into lib/.gems -->
+		  <env key="HOME" value="${dotgem.parent}"/>
+		  <arg value="-S"/>
+		  <arg value="gem"/>
+		  <arg value="install"/>
+		  <arg value="--no-ri"/>
+		  <arg value="--no-rdoc"/>
+		  <arg value="--install-dir"/>
+		  <arg value="${gem.home}"/>
+		  <arg value="--source"/>
+		  <arg value="@{source}"/>
+		  <arg value="--version"/>
+		  <arg value="@{version}"/>
+		  <arg value="@{gem}"/>
+		</java>
+	 </sequential>
   </macrodef>
-
+ 
   <target name="clean" description="Delete all generated artifacts">
-    <delete dir="${basedir}/target"/>
+	 <delete dir="${basedir}/target"/>
   </target>
-
+ 
   <target name="clean-deps" description="Delete all dependencies">
-    <delete dir="${basedir}/lib/.gem"/>
-    <delete>
-      <fileset dir="${basedir}/lib" includes=".jar"/>
-    </delete>
+	 <delete dir="${basedir}/lib/.gem"/>
+	 <delete>
+		<fileset dir="${basedir}/lib" includes=".jar"/>
+	 </delete>
   </target>
-
+ 
 </project>
+
+
