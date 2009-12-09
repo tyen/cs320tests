@@ -1,30 +1,51 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="CS321 Team A Integration Tests" default="cucumber" basedir=".">
-
-<!-- Setting Propert Names -->
   <property name="dotgem.parent" value="${basedir}/lib"/>
   <property name="gem.home" value="${dotgem.parent}/.gem"/>
   <property name="cucumber.bin" value="${gem.home}/bin/cucumber"/>
-  <property name="src" value="src/" />
-  <property name="lib" value="lib/" />
- <!-- <property name="classes" value="./target/test-classes/edu/cs320/project/" />-->
- <!-- <property name="test.class.name" value="./target/test-classes/edu/cs320/project/AllTests.class" />-->
-  <property name="test.reports" value="./target/reports/" />  	
-  <property name="ant.home" value="/home/tyen/apache-ant-1.7.1"/>
-	
-<!-- Setting classpath for Junit to use -->
-<path id="test.classpath">
-  <pathelement location="${classes}" />
-  <pathelement location="${lib}/junit-4.7.jar"/>
-	<pathelement path="${ant.home}/lib/xml-apis.jar:${ant.home}/lib/xercesImpl.jar"/>
+  <property name="tst-dir" location="target/test-classes" />
+  <property name="TALK" value="true" />
+  <property name="test.reports" value="./target/reports" />
 
-  <fileset dir="${lib}">
-	 <include name="**/*.jar"/>
-  </fileset>
-	<pathelement path="${java.class.path}" />
-</path>
+  <path id="classpath.base"> </path>
+  <path id="classpath.test">
+    <pathelement location="./lib/junit-4.7.jar" />
+    <pathelement location="${tst-dir}" />
+    <path refid="classpath.base" />
+  </path>
 
-<!-- Compile the Java -->
-<target name="compile-steps" description="Compile test classes">
+  <target name="compile-test">
+    <javac srcdir="${tst-dir}"
+           verbose="${TALK}"
+           >
+      <classpath refid="classpath.test"/>
+    </javac>
+  </target>
+  <target name="clean-compile-test">
+    <delete verbose="${TALK}">
+      <fileset dir="${tst-dir}" includes="**/*.class" />
+    </delete>
+  </target>
+
+  <target name="test" depends="compile-test">
+    <junit fork="yes" printsummary="no" haltonfailure="no">
+    	<batchtest fork="yes" todir="${test.reports}" >
+    		<fileset dir="./target/test-classes">
+    		        <include name="**/*AllTests.class" />
+	       </fileset>
+		</batchtest>
+	      <formatter type="xml" />
+	      <classpath refid="classpath.test" />
+    </junit>
+  	
+  	<junitreport todir="${test.reports}">
+  	    <fileset dir="${test.reports}">
+  	      <include name="TEST-*.xml" />
+  	    </fileset>
+  	    <report todir="${test.reports}" />
+  	  </junitreport>
+  </target>
+
+	<target name="compile-steps" description="Compile test classes">
 	 <mkdir dir="target/test-classes"/>
 	 <javac srcdir="src/" destdir="target/test-classes">
 		<classpath>
@@ -34,46 +55,6 @@
 		</classpath>
 	 </javac>
   </target>
- 
-<!-- Running the JUnit stuff -->
-<target name="test-html" depends="compile-steps">
-  <junit fork="no" printsummary="yes" haltonfailure="no">
-	 <batchtest fork="no" todir="${test.reports}" >
-		<fileset dir="/home/tyen/cs320/team_t/integration_team_a/target/test-classes/edu/cs320/project">
-		 <!-- <include name="*Test*.class" />
-		  <exclude name="**/AllTests.class" />-->
-			<include name="TestAllergy.class"/>
-		</fileset>
-	 </batchtest>
-	 <formatter type="xml" />
-	 <classpath refid="test.classpath" />
-  </junit>
-
-  <junitreport todir="${test.reports}">
-	 <fileset dir="${test.reports}">
-		<include name="TEST-*.xml" />
-	 </fileset>
-	 <report todir="${test.reports}" />
-  </junitreport>
-</target>
-	  
-
-
-<!-- OLD
-<target name="junit" depends="compile-steps" description="JUnit">
-<junit printsummary="yes" haltonfailure="yes">
-<formatter type="plain"/>
- 
-<batchtest fork="no" todir="${reports.tests}">
-<fileset dir="${src.tests}">
-<include name="**/*Test*.java"/>
-<exclude name="**/AllTests.java"/>
-</fileset>
-</batchtest>
-</junit>
-</target>
-
--->
  
   <target name="cucumber" depends="compile-steps" description="Run Cucumber">
 	 <java classname="org.jruby.Main" fork="true" failonerror="true">
