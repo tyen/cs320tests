@@ -1,7 +1,7 @@
 package tests;
 
 import cuke4duke.*;
-import cs320.*;
+import edu.cs320.project.*;
 import static org.junit.Assert.*;
 
 public class UserInterfaceSecurity {

@@ -2,7 +2,7 @@ package tests;
 
 import cuke4duke.*;
 import static org.junit.Assert.*;
-import cs320.*;
+import edu.cs320.project.*;
 
 public class DatabaseSecurity {
 	@Given("^my own independent implementation of the encrypted algorithm$")

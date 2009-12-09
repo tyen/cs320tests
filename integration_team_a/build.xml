@@ -7,35 +7,39 @@
 	<property name="test.reports" value="./target/reports" />
 	<property name="svn.url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="~/jars/svnant.jar" />
-
-	<target name = "svn">
-		<svn javahl="false">
-			<export srcUrl="${svn.url}" destPath = "src" />
-		</svn>
+	
+	<target name="delete-teama" >
+		<delete dir="./src/edu" includeEmptyDirs="true" />
 	</target>
 
-	<path id="classpath.base">
-	</path>
+	<target name = "svn" depends="delete-teama">
+		<svn javahl="false">
+			<export srcUrl="${svn.url}" destPath = "./src_temp" />
+		</svn>
+		<move todir="./src/">
+			<fileset dir="./src_temp" />
+		</move>
+	</target>
+
+	<path id="classpath.base"> </path>
 	<path id="classpath.test">
-		<pathelement location="./lib/junit-4.7.jar" />
 		<pathelement location="${tst-dir}" />
 		<path refid="classpath.base" />
 	</path>
 
 	<target name="compile-test">
-		<javac srcdir="${tst-dir}"
-           verbose="${TALK}"
-           >
+		<javac srcdir="${tst-dir}" verbose="${TALK}" >
 			<classpath refid="classpath.test"/>
 		</javac>
 	</target>
+	
 	<target name="clean-compile-test">
 		<delete verbose="${TALK}">
 			<fileset dir="${tst-dir}" includes="**/*.class" />
 		</delete>
 	</target>
 
-	<target name="test" depends="compile-test">
+	<target name="junit" depends="compile-steps">
 		<junit fork="yes" printsummary="no" haltonfailure="no">
 			<batchtest fork="yes" todir="${test.reports}" >
 				<fileset dir="./target/test-classes">

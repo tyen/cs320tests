@@ -3,7 +3,7 @@ package tests;
 import java.util.HashMap;
 
 import cuke4duke.*;
-import cs320.*;
+import edu.cs320.project.*;
 import static org.junit.Assert.*;
 
 public class PatientManagement {
