@@ -9,11 +9,8 @@
 	<property name="svnant.jar" value = "~/jars/svnant.jar" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="${svnant.jar}" />
 	
-	<target name="delete-teama" >
+	<target name = "svn">
 		<delete dir="./src/edu" includeEmptyDirs="true" />
-	</target>
-
-	<target name = "svn" depends="delete-teama">
 		<svn javahl="false">
 			<export srcUrl="${svn.url}" destPath = "./src_temp" />
 		</svn>
@@ -27,19 +24,6 @@
 		<pathelement location="${tst-dir}" />
 		<path refid="classpath.base" />
 	</path>
-
-	<target name="compile-test">
-		<javac srcdir="${tst-dir}" verbose="${TALK}" >
-			<classpath refid="classpath.test"/>
-		</javac>
-	</target>
-	
-	<target name="clean-compile-test">
-		<delete verbose="${TALK}">
-			<fileset dir="${tst-dir}" includes="**/*.class" />
-		</delete>
-	</target>
-
 
 	<target name="junit" depends="compile-steps">
 		<delete dir="${test.reports}" />
