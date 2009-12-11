@@ -44,7 +44,7 @@
 	<target name="junit" depends="compile-steps">
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}"/>
-		<junit fork="yes" printsummary="no" haltonfailure="no">
+		<junit fork="yes" printsummary="yes" haltonfailure="no">
 			<batchtest fork="yes" todir="${test.reports}" >
 				<fileset dir="./target/test-classes">
 					<include name="**/*AllJUnitTests.class" />
@@ -58,7 +58,7 @@
 			<fileset dir="${test.reports}">
 				<include name="TEST-*.xml" />
 			</fileset>
-			<report todir="${test.reports}" />
+			<report todir="${test.reports}/junitreport" />
 		</junitreport>
 	</target>
 
