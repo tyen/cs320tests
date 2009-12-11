@@ -6,7 +6,8 @@
 	<property name="TALK" value="true" />
 	<property name="test.reports" value="./target/reports" />
 	<property name="svn.url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
-	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="~/jars/svnant.jar" />
+	<property name="svnant.jar" value = "~/jars/svnant.jar" />
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="${svnant.jar}" />
 	
 	<target name="delete-teama" >
 		<delete dir="./src/edu" includeEmptyDirs="true" />
@@ -39,11 +40,14 @@
 		</delete>
 	</target>
 
+
 	<target name="junit" depends="compile-steps">
+		<delete dir="${test.reports}" />
+		<mkdir dir="${test.reports}"/>
 		<junit fork="yes" printsummary="no" haltonfailure="no">
 			<batchtest fork="yes" todir="${test.reports}" >
 				<fileset dir="./target/test-classes">
-					<include name="**/*AllTests.class" />
+					<include name="**/*AllJUnitTests.class" />
 				</fileset>
 			</batchtest>
 			<formatter type="xml" />
@@ -173,5 +177,3 @@
 	</target>
 
 </project>
-
-
