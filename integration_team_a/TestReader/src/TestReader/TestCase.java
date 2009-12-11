@@ -87,17 +87,17 @@ public class TestCase {
 	}
 	
 	public String getExpected(String failureMessage){
-		Matcher regex = Pattern.compile("expected:<.+>").matcher(failureMessage);
-		System.out.print(regex.matches());
-		return""; 
+		Matcher regex = Pattern.compile("expected:<(.+?)>").matcher(failureMessage);
+		regex.find();
+			
+		return regex.group(1);
 	}
 	
 	public String getActual(String failureMessage){
+		Matcher regex = Pattern.compile("but was:<(.+?)>").matcher(failureMessage);
+		regex.find();
 		
-		Matcher regex = Pattern.compile("but was:<.+>").matcher(failureMessage);
-		
-		System.out.print(regex.matches());
-		return "";
+		return regex.group(1);
 	}
 
 	/**
