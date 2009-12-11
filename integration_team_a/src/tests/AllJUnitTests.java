@@ -37,5 +37,4 @@ public class AllJUnitTests {
 		//$JUnit-END$
 		return suite;
 	}
-
 }

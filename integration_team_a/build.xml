@@ -60,6 +60,14 @@
 			</fileset>
 			<report todir="${test.reports}/junitreport" />
 		</junitreport>
+
+		<java classname="tests.XMLParser" failonerror="true">
+			<classpath refid="classpath.test"/>
+		</java>
+
+		<java classname="tests.DBHandler" failonerror="true">
+			<classpath refid="classpath.test"/>
+		</java>
 	</target>
 
 	<target name="compile-steps" description="Compile test classes">
