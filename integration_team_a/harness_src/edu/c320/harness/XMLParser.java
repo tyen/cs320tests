@@ -1,4 +1,4 @@
-package TestReader;
+package edu.c320.harness;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +19,7 @@ public class XMLParser {
 	private Document dom;
 	private ArrayList<TestCase> tests = new ArrayList<TestCase>();
 	private File fileName;
+	private String errorMessage;
 	
 	public XMLParser(String fileName){
 		this.fileName = new File(fileName);
@@ -84,6 +85,10 @@ public class XMLParser {
 			isSuccessful = false;
 			failureMessage = getTextValue(testEl, "failure");
 		}
+		if(getTextValue(testEl, "error") != null){
+			isSuccessful = false;
+			errorMessage = getTextValue(testEl, "error");
+		}
 		String className = testEl.getAttribute("classname");
 		String testName = testEl.getAttribute("name");
 		String time = testEl.getAttribute("time");
@@ -95,6 +100,9 @@ public class XMLParser {
 			t.setFailureMessage(failureMessage);
 			t.setActual(t.getActual(failureMessage));
 			t.setExpected(t.getExpected(failureMessage));
+		}
+		if(getTextValue(testEl, "error") != null){
+			t.setError(errorMessage);
 		}
 
 		return t;
