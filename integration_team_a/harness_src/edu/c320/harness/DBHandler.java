@@ -177,7 +177,7 @@ public class DBHandler {
 
 		// Concatenate columns with corresponding values
 		query += columns + "VALUES " + values;
-		System.out.println(query);
+		
 		try {
 			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.execute();
@@ -241,7 +241,6 @@ public class DBHandler {
 
 		query += "WHERE " + idKey + " = " + idValue;
 
-		System.out.println(query);
 		try {
 			statement = connection.prepareStatement(query);
 			statement.execute();
@@ -266,7 +265,7 @@ public class DBHandler {
 		try {
 			if(results != null && results.next())
 				return true;
-			System.out.println("doesn't exist");
+
 			return false;
 		}
 		catch (SQLException e) {
