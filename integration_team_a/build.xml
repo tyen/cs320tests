@@ -50,7 +50,6 @@
 	</target>
 
 	<target name="compile-steps" description="Compile classes">
-		<delete dir="target/test-classes" />
 		<mkdir dir="target/test-classes"/>
 		<javac srcdir="src/" destdir="target/test-classes">
 			<classpath>
