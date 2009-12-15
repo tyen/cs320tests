@@ -1,11 +1,11 @@
-package edu.c320.harness;
+package harness;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.regex.*;
 
-import edu.c320.harness.DBHandler.NoDBConnectivityException;
+import harness.DBHandler.NoDBConnectivityException;
 
 public class TestCase {
 	private static DBHandler dbHandler = DBHandler.getInstance();

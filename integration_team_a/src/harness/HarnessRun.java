@@ -1,10 +1,10 @@
-package edu.c320.harness;
+package harness;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 
-import edu.c320.harness.DBHandler.NoDBConnectivityException;
+import harness.DBHandler.NoDBConnectivityException;
 
 public class HarnessRun {
 

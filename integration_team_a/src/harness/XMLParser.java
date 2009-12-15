@@ -1,4 +1,4 @@
-package edu.c320.harness;
+package harness;
 
 import java.io.File;
 import java.io.IOException;

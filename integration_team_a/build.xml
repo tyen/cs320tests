@@ -1,4 +1,4 @@
-<project name="CS321 Team A Integration Tests" default="cucumber" basedir=".">
+<project name="CS321 Team A Integration Tests" default="junit" basedir=".">
 	<property name="tst-classes" location="target/test-classes" />
 	<property name="tst-reports" value="target/reports" />
 	<property name="svn-url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
@@ -6,10 +6,13 @@
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="${svnant-jar}" />
 	
 	<target name = "svn">
-		<delete dir="team_src" includeEmptyDirs="true" />
-		<svn javahl="false">
-			<export srcUrl="${svn-url}" destPath = "team_src" />
-		</svn>
+		<delete dir="src/edu" includeEmptyDirs="true" />
+			<svn javahl="false">
+				<export srcUrl="${svn-url}" destPath = "src_temp" />
+			</svn>
+		<move todir="src">
+		  <fileset dir="src_temp" />
+		</move>
 	</target>
 
 	<path id="classpath.base"> </path>
@@ -24,7 +27,7 @@
 		<junit fork="yes" printsummary="yes" haltonfailure="no">
 			<batchtest fork="yes" todir="${tst-reports}" >
 				<fileset dir="target/test-classes">
-					<include name="**/*AllJUnitTests.class" />
+					<include name="**/*AllTests.class" />
 				</fileset>
 			</batchtest>
 			<formatter type="xml" />
@@ -39,27 +42,17 @@
 		</junitreport>
 
 		<!--
-		<java classname="tests.XMLParser" failonerror="true">
-			<classpath refid="classpath.test"/>
-		</java>
-
-		<java classname="tests.DBHandler" failonerror="true">
+		TODO: Uncomment when this class works
+		<java classname="edu.cs320.harness.TestHarnessDriver" failonerror="true">
 			<classpath refid="classpath.test"/>
 		</java>
 		-->
 	</target>
 
 	<target name="compile-steps" description="Compile classes">
+		<delete dir="target/test-classes" />
 		<mkdir dir="target/test-classes"/>
-		<javac srcdir="team_src/" destdir="target/test-classes">
-			<classpath>
-				<fileset dir="lib">
-					<include name="**/*.jar"/>
-				</fileset>
-			</classpath>
-		</javac>
-
-		<javac srcdir="harness_src/" destdir="target/test-classes">
+		<javac srcdir="src/" destdir="target/test-classes">
 			<classpath>
 				<fileset dir="lib">
 					<include name="**/*.jar"/>
@@ -67,7 +60,6 @@
 			</classpath>
 		</javac>
 	</target>
-
 
 	<target name="clean" description="Delete all generated artifacts">
 		<delete dir="${basedir}/target"/>
