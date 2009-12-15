@@ -2,17 +2,14 @@
 	<property name="tst-classes" location="target/test-classes" />
 	<property name="tst-reports" value="target/reports" />
 	<property name="svn-url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
-	<property name="svnant-jar" value = "libs/svnant.jar" />
+	<property name="svnant-jar" value = "lib/svnant.jar" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="${svnant-jar}" />
 	
 	<target name = "svn">
-		<delete dir="src/edu" includeEmptyDirs="true" />
+		<delete dir="team_src" includeEmptyDirs="true" />
 		<svn javahl="false">
-			<export srcUrl="${svn-url}" destPath = "src_temp" />
+			<export srcUrl="${svn-url}" destPath = "team_src" />
 		</svn>
-		<move todir="src/">
-			<fileset dir="src_temp" />
-		</move>
 	</target>
 
 	<path id="classpath.base"> </path>
@@ -41,6 +38,7 @@
 			<report todir="${tst-reports}/junitreport" />
 		</junitreport>
 
+		<!--
 		<java classname="tests.XMLParser" failonerror="true">
 			<classpath refid="classpath.test"/>
 		</java>
@@ -48,11 +46,20 @@
 		<java classname="tests.DBHandler" failonerror="true">
 			<classpath refid="classpath.test"/>
 		</java>
+		-->
 	</target>
 
-	<target name="compile-steps" description="Compile test classes">
+	<target name="compile-steps" description="Compile classes">
 		<mkdir dir="target/test-classes"/>
-		<javac srcdir="src/" destdir="target/test-classes">
+		<javac srcdir="team_src/" destdir="target/test-classes">
+			<classpath>
+				<fileset dir="lib">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+
+		<javac srcdir="harness_src/" destdir="target/test-classes">
 			<classpath>
 				<fileset dir="lib">
 					<include name="**/*.jar"/>

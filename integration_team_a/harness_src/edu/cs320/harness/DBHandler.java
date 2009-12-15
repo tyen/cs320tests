@@ -1,4 +1,4 @@
-package edu.c320.harness;
+package edu.cs320.harness;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
