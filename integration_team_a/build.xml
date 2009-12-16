@@ -19,6 +19,9 @@
 	</path>
 	<path id="classpath.test">
 		<pathelement location="${tst-classes}" />
+		<fileset dir="lib">
+		    <include name="*.jar"/>
+		</fileset>
 		<path refid="classpath.base" />
 	</path>
 
@@ -29,7 +32,7 @@
 			<jvmarg value="-Xmx256M"/>
 			<batchtest fork="yes" todir="${tst-reports}" >
 				<fileset dir="target/test-classes">
-					<include name="**/*AllTests.class" />
+					<include name="**/*UnitTests.class" />
 				</fileset>
 			</batchtest>
 			<formatter type="xml" />
@@ -39,14 +42,15 @@
 
 		<junitreport todir="${tst-reports}">
 			<fileset dir="${tst-reports}">
-				<include name="TEST-*.xml" />
+				<include name="UNIT_TEST-*.xml" />
 			</fileset>
 			<report todir="${tst-reports}/junitreport" />
 		</junitreport>
 
 		<java classname="harness.TestHarnessDriver" failonerror="true">
 			<classpath refid="classpath.test"/>
-
+			<arg value="unit" />
+			
 		</java>
 	</target>
 
@@ -57,7 +61,7 @@
 			<jvmarg value="-Xmx256M" />
 			<batchtest fork="yes" todir="${tst-reports}">
 				<fileset dir="target/test-classes">
-					<include name="**/*AllTests.class" />
+					<include name="**/*IntegrationTests.class" />
 				</fileset>
 			</batchtest>
 			<formatter type="xml" />
@@ -86,7 +90,7 @@
 			<jvmarg value="-Xmx256M" />
 			<batchtest fork="yes" todir="${tst-reports}">
 				<fileset dir="target/test-classes">
-					<include name="**/*AllTests.class" />
+					<include name="**/*SystemTests.class" />
 				</fileset>
 			</batchtest>
 			<formatter type="xml" />
@@ -103,7 +107,7 @@
 
 		<java classname="harness.TestHarnessDriver" failonerror="true">
 			<classpath refid="classpath.test" />
-			<arg value="system_test" />
+			<arg value="system" />
 
 		</java>
 	</target>
