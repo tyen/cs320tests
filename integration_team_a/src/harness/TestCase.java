@@ -29,9 +29,18 @@ public class TestCase {
 		this.setClassName(className);
 		this.setTestName(name);
 		this.setTime(time);
-		this.setProjectID(2);
+		this.setProjectID();
 	}
 	
+	private void setProjectID() {
+		if(this.testType.equals("unit"))
+			this.projectID = 8;
+		else if(this.testType.equals("integration"))
+			this.projectID = 7;
+		else // system test
+			this.projectID = 2;
+	}
+
 	public String toString(){
 		return "passed: " + isSuccessful + ", Test from class: " + className + ", test name: " + testName + 
 		", time: " + time + ", Expected: " + expected + ", Actual: " + actual+ ", Error: " + error;
@@ -83,7 +92,7 @@ public class TestCase {
 	 * @param time the time to set
 	 */
 	public void setTime(String time) {
-		this.time = (int)Float.parseFloat(time) * 1000;
+		this.time = (int)(Float.parseFloat(time) * 1000);
 	}
 
 	/**

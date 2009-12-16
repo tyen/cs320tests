@@ -38,7 +38,7 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(3);
+		sleep(4);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
@@ -51,7 +51,7 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(3);
+		sleep(4);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
@@ -64,7 +64,7 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(3);
+		sleep(4);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
@@ -78,7 +78,6 @@ public class LoginSystemTest extends TestCase {
 		rob.type("");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
-		sleep(2);
 	}
 	
 	public void testLoginFail2() {
@@ -89,7 +88,6 @@ public class LoginSystemTest extends TestCase {
 		rob.type("CS320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		sleep(2);
 	}
 	
 	public void testLoginFail3() {
@@ -100,7 +98,6 @@ public class LoginSystemTest extends TestCase {
 		rob.type("wafweasdf");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
-		sleep(2);
 	}
 	
 	public void testLoginFail4() {

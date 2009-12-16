@@ -11,7 +11,7 @@ public class HarnessRun {
 	private static DBHandler dbHandler = DBHandler.getInstance();
 
 	private final char team = 'a';
-	private final Timestamp startTime;
+	private Timestamp startTime;
 	private Timestamp endTime;
 	private String revision;
 	private int id;
@@ -127,6 +127,14 @@ public class HarnessRun {
 	 */
 	public int getId() {
 		return id;
+	}
+
+	/**
+	 * Set the time the harness started
+	 * @param harnessDuration
+	 */
+	public void setStartTime(int harnessDuration) {
+		this.startTime = new Timestamp(2 * (new Date().getTime()) - this.startTime.getTime() - harnessDuration);
 	}
 
 
