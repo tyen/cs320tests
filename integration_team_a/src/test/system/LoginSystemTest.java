@@ -1,7 +1,7 @@
-package test;
+package test.system;
 
 import java.awt.AWTException;
-
+import test.SmartRobot;
 import edu.cs320.project.*;
 import junit.framework.TestCase;
 
@@ -31,7 +31,7 @@ public class LoginSystemTest extends TestCase {
 	}
 	
 	
-	public void testLoginSuccess1() throws AWTException, InterruptedException{
+	public void testLoginSuccess1() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("cs320");
@@ -44,7 +44,7 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
 	
-	public void testLoginSuccess2() throws AWTException, InterruptedException{
+	public void testLoginSuccess2() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("CS320");
@@ -57,7 +57,20 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
 	
-	public void testLoginFail1() throws AWTException {
+	public void testLoginSuccess3() {
+		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		rob.mouseClick(loginDisplay.getUserNameFieldTest());
+		rob.type("Cs320");
+		rob.mouseClick(loginDisplay.getPasswordFieldTest());
+		rob.type("cs320");
+		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		sleep(3);
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+	}
+	
+	public void testLoginFail1() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("");
@@ -65,9 +78,10 @@ public class LoginSystemTest extends TestCase {
 		rob.type("");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(2);
 	}
 	
-	public void testLoginFail2() throws AWTException {
+	public void testLoginFail2() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("CS320");
@@ -75,9 +89,10 @@ public class LoginSystemTest extends TestCase {
 		rob.type("CS320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		sleep(2);
 	}
 	
-	public void testLoginFail3() throws AWTException {
+	public void testLoginFail3() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("CS320");
@@ -85,9 +100,10 @@ public class LoginSystemTest extends TestCase {
 		rob.type("wafweasdf");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(2);
 	}
 	
-	public void testLoginFail4() throws AWTException {
+	public void testLoginFail4() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("CS320");

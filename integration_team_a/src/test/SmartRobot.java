@@ -4,11 +4,8 @@ import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JComponent;
-
 import edu.cs320.project.DisplayController;
+import javax.swing.JComponent;
 
 public class SmartRobot extends Robot {
 
@@ -32,8 +29,6 @@ public class SmartRobot extends Robot {
 
 
 	public void type(String text) {
-		String textUpper = text.toUpperCase();
-
 		for (int i=0; i<text.length(); ++i) {
 			typeChar(text.charAt(i));
 		}		
