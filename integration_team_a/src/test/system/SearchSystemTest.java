@@ -1,4 +1,7 @@
-package edu.cs320.project;
+package test.system;
+
+import edu.cs320.project.*;
+import test.*;
 
 import java.awt.AWTException;
 
@@ -74,9 +77,9 @@ public class SearchSystemTest extends TestCase {
 	 * and searching for the same patient again.
 	 */
 	public void testSearchForNonExistingPatientNurse(){
-		String firstName = InputGenerator.randomString(20); // name of 20 characters
-		String lastName = InputGenerator.randomString(20); //last name of 20 characters
-		String dob = InputGenerator.randomDateStringFormat2();
+		String firstName = test.InputGenerator.randomString(20); // name of 20 characters
+		String lastName = test.InputGenerator.randomString(20); //last name of 20 characters
+		String dob = test.InputGenerator.randomDateStringFormat2();
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as nurse
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
@@ -104,10 +107,10 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(x+300, y+110);
-		rob.type(Integer.toString(InputGenerator.randomInt(1000)));
+		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
 		rob.mouseClick(x+250, y+110);
 		rob.delay(5000);
-		rob.type(Integer.toString(InputGenerator.randomInt(1000)));
+		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
 		
 		
 		//click submit button

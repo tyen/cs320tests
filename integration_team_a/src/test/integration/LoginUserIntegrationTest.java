@@ -40,20 +40,5 @@ public class LoginUserIntegrationTest extends TestCase {
 		}
 	}
 	
-	// add usernames and passwords that are too long
-	public void testLoginUser2() {
-		Storage.GetInstance().deleteFromClient("cs320.user");
-		ArrayList<User> uniqUsers = new ArrayList<User>();
-		for(int i = 0; i < iterations; i++) {
-			User newUser = InputGenerator.randomMinUser(50);
-			if (!uniqUsers.contains(newUser))
-				uniqUsers.add(newUser);
-		}
-		for(User u : uniqUsers) {
-			assertTrue(StorageWrapper.Save("cs320.user",u.toHashMap()));
-			login.LoginToSystem(u.GetUserName(), u.password);
-			assertTrue(login.GetSuccessfulLogin());
-		}
-	}
 }
 

@@ -134,6 +134,19 @@ public class InputGenerator {
 			year, month, day, hour, minute, second);
 	}
 	
+	public static String randomDateStringFormat2() {
+		int year = randomDateYear();
+		int month = randomDateMonth();
+		int day = randomDateDay(year, month);
+		
+		int hour = randomDateHour();
+		int minute = randomDateMinute();
+		int second = randomDateSecond();
+
+		return String.format("%02d-%02d-%04d %02d:%02d:%02d",
+			month, day, year, hour, minute, second);
+	}
+	
 	public static String randomDateDisplayString() {
 		int year = randomDateYear();
 		int month = randomDateMonth();
