@@ -19,16 +19,15 @@ public class TestHarnessDriver {
 		String testType = "";
 		if(args.length > 0)
 			testType = args[0];
-		
+		testType = "system";
 		harnessRun = new HarnessRun();
-		//harnessRun.save();
+		harnessRun.save();
 		String s = File.separator;
-		File workingDirectory = new File(System.getProperty("user.dir")+s+"integration_team_a"+s+"target"+s+"reports");
-		System.out.println(workingDirectory.getAbsolutePath());
+		File workingDirectory = new File(System.getProperty("user.dir")+s+"integration_team_a"+s+"target"+s+"reports"+s+testType);
+		
 		FilenameFilter fileFilter = new FilenameFilter(){
 			public boolean accept(File dir, String name) {
-				System.out.println(name);
-				if(name.toLowerCase().endsWith("xml"))
+				if(name.toLowerCase().trim().endsWith("xml"))
 					return true;
 				else
 					return false;
@@ -39,7 +38,6 @@ public class TestHarnessDriver {
 		
 		// Create TestCase objects for each test case
 		for(File file: files){
-			System.out.println(file);
 			XMLParser p = new XMLParser(file.getAbsolutePath());
 
 			p.parseXMLFile();
@@ -51,11 +49,11 @@ public class TestHarnessDriver {
 		for(TestCase test : tests){
 			test.setTestType(testType);
 			test.setHarnessRunID(harnessRun.getId());
-			//test.save();
+			test.save();
 		}
 		
 		harnessRun.setEndTime();
-		//harnessRun.update();
+		harnessRun.update();
 		
 		DBHandler.getInstance().disconnect();
 	}

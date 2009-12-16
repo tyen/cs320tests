@@ -151,7 +151,6 @@ public class TestCase {
 		map.put("test_id", Integer.toString(this.testID));
 		map.put("harness_run_id", Integer.toString(this.harnessRunID));
 		map.put("pass", Boolean.toString(isSuccessful));
-		map.put("project_id", Integer.toString(this.projectID));
 		map.put("duration", Integer.toString(this.time));
 		if(this.error != null)
 			map.put("stacktrace", "'"+this.error.substring(0, this.error.length() < 512 ? this.error.length() : 512)+"'");
@@ -210,6 +209,7 @@ public class TestCase {
 	private boolean findTestID() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("name", "'"+this.testName+"'");
+		map.put("project_id", Integer.toString(this.projectID));
 		
 		try {
 			// Add the test if it doesn't exist in the DB and get the id
@@ -230,9 +230,11 @@ public class TestCase {
 			}
 		} 
 		catch (NoDBConnectivityException e) {
+			e.printStackTrace();
 			return false;
 		} 
 		catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}	
 	}

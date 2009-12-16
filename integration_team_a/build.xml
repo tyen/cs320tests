@@ -1,6 +1,8 @@
 <project name="CS320 Team A Test Harness" default="system" basedir=".">
 	<property name="tst-classes" location="target/test-classes" />
-	<property name="tst-reports" value="target/reports" />
+	<property name="unit-tst-reports" value="target/reports/unit" />
+	<property name="int-tst-reports" value="target/reports/integration" />
+	<property name="sys-tst-reports" value="target/reports/system" />
 	<property name="svn-url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
 	<property name="svnant-jar" value = "lib/svnant.jar" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="${svnant-jar}" />
@@ -26,11 +28,11 @@
 	</path>
 
 	<target name="unit" depends="compile-steps">
-		<delete dir="${tst-reports}" />
-		<mkdir dir="${tst-reports}"/>
+		<delete dir="${unit-tst-reports}" />
+		<mkdir dir="${unit-tst-reports}"/>
 		<junit fork="yes" printsummary="yes" haltonfailure="no">
 			<jvmarg value="-Xmx256M"/>
-			<batchtest fork="yes" todir="${tst-reports}" >
+			<batchtest fork="yes" todir="${unit-tst-reports}" >
 				<fileset dir="target/test-classes">
 					<include name="**/*UnitTests.class" />
 				</fileset>
@@ -40,11 +42,11 @@
 		</junit>
 
 
-		<junitreport todir="${tst-reports}">
-			<fileset dir="${tst-reports}">
+		<junitreport todir="${unit-tst-reports}">
+			<fileset dir="${unit-tst-reports}">
 				<include name="UNIT_TEST-*.xml" />
 			</fileset>
-			<report todir="${tst-reports}/junitreport" />
+			<report todir="${unit-tst-reports}/junitreport" />
 		</junitreport>
 
 		<java classname="harness.TestHarnessDriver" failonerror="true">
@@ -55,11 +57,11 @@
 	</target>
 
 	<target name="integration" depends="compile-steps">
-		<delete dir="${tst-reports}" />
-		<mkdir dir="${tst-reports}" />
+		<delete dir="${int-tst-reports}" />
+		<mkdir dir="${int-tst-reports}" />
 		<junit fork="yes" printsummary="yes" haltonfailure="no">
 			<jvmarg value="-Xmx256M" />
-			<batchtest fork="yes" todir="${tst-reports}">
+			<batchtest fork="yes" todir="${int-tst-reports}">
 				<fileset dir="target/test-classes">
 					<include name="**/*IntegrationTests.class" />
 				</fileset>
@@ -69,11 +71,11 @@
 		</junit>
 
 
-		<junitreport todir="${tst-reports}">
-			<fileset dir="${tst-reports}">
+		<junitreport todir="${int-tst-reports}">
+			<fileset dir="${int-tst-reports}">
 				<include name="INTEGRATION_TEST-*.xml" />
 			</fileset>
-			<report todir="${tst-reports}/junitreport" />
+			<report todir="${int-tst-reports}/junitreport" />
 		</junitreport>
 
 		<java classname="harness.TestHarnessDriver" failonerror="true">
@@ -84,11 +86,11 @@
 	</target>
 	
 	<target name="system" depends="compile-steps">
-		<delete dir="${tst-reports}" />
-		<mkdir dir="${tst-reports}" />
+		<delete dir="${sys-tst-reports}" />
+		<mkdir dir="${sys-tst-reports}" />
 		<junit fork="yes" printsummary="yes" haltonfailure="no">
 			<jvmarg value="-Xmx256M" />
-			<batchtest fork="yes" todir="${tst-reports}">
+			<batchtest fork="yes" todir="${sys-tst-reports}">
 				<fileset dir="target/test-classes">
 					<include name="**/*SystemTests.class" />
 				</fileset>
@@ -98,11 +100,11 @@
 		</junit>
 
 
-		<junitreport todir="${tst-reports}">
-			<fileset dir="${tst-reports}">
+		<junitreport todir="${sys-tst-reports}">
+			<fileset dir="${sys-tst-reports}">
 				<include name="SYSTEM_TEST-*.xml" />
 			</fileset>
-			<report todir="${tst-reports}/junitreport" />
+			<report todir="${sys-tst-reports}/junitreport" />
 		</junitreport>
 
 		<java classname="harness.TestHarnessDriver" failonerror="true">
