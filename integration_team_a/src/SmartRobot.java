@@ -1,8 +1,12 @@
+package edu.cs320.project;
 
 import java.awt.AWTException;
+import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
 
 public class SmartRobot extends Robot {
 
@@ -64,6 +68,8 @@ public class SmartRobot extends Robot {
 			case 'X': keyCode = KeyEvent.VK_X; break;
 			case 'Y': keyCode = KeyEvent.VK_Y; break;
 			case 'Z': keyCode = KeyEvent.VK_Z; break;
+			case '\n': shift = false;
+			case '\r': keyCode = KeyEvent.VK_ENTER; break;
 			case '~': keyCode = (int)'`'; break;
 			case '!': keyCode = (int)'1'; break;
 			case '@': keyCode = (int)'2'; break;
@@ -101,10 +107,63 @@ public class SmartRobot extends Robot {
 		delay(50);
 	}
 	
+	public void mouseClick(int x, int y){
+		this.mouseMove(x, y);
+		this.mousePress(KeyEvent.BUTTON1_MASK);
+		delay(50);
+		this.mouseRelease(KeyEvent.BUTTON1_MASK);
+		delay(50);
+	}
+	
+	public void mouseClick(JComponent component){
+		Point center = this.calculateComponentCenter(component);
+		this.mouseMove(center.x, center.y);
+		this.mousePress(KeyEvent.BUTTON1_MASK);
+		delay(50);
+		this.mouseRelease(KeyEvent.BUTTON1_MASK);
+		delay(50);
+	}
+	
+	private Point calculateComponentCenter(JComponent component){
+		int x = component.getX() + component.getWidth() / 2 + this.getXOffset();
+		int y = component.getY() + component.getHeight() / 2 + this.getYOffset();
+		
+		return new Point(x, y);
+	}
+	
+	public void mouseDoubleClick(JComponent component) {
+		Point center = this.calculateComponentCenter(component);
+		this.mouseMove(center.x, center.y);
+		this.mouseClick();
+		delay(200);
+		this.mouseClick();
+	}
+		
+	public void mouseDoubleClick(int x, int y) {
+		this.mouseMove(x, y);
+		this.mouseClick();
+		delay(200);
+		this.mouseClick();
+	}
+	
 	public void mouseDoubleClick() {
 		this.mouseClick();
 		delay(200);
 		this.mouseClick();
+	}
+	
+	public void typeEnter() {
+		this.typeChar('\n');
+	}
+	
+	private int getXOffset(){
+		DisplayController instance = DisplayController.GetInstance();
+		return instance.getXOnScreen();
+	}
+	
+	private int getYOffset(){
+		DisplayController instance = DisplayController.GetInstance();
+		return instance.getYOnScreen() + 25;
 	}
 
 }
