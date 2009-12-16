@@ -28,6 +28,7 @@ public class LoginSystemTest extends TestCase {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
+		DisplayController.GetInstance().TearDown();
 	}
 	
 	
@@ -106,6 +107,46 @@ public class LoginSystemTest extends TestCase {
 		rob.type("CS320");
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
 		rob.type("");
+		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+	}
+	
+	public void testLoginFail6() {
+		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		rob.mouseClick(loginDisplay.getUserNameFieldTest());
+		rob.type("CS320a");
+		rob.mouseClick(loginDisplay.getPasswordFieldTest());
+		rob.type("cs320");
+		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+	}
+	
+	public void testLoginFail7() {
+		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		rob.mouseClick(loginDisplay.getUserNameFieldTest());
+		rob.type("CS320 ");
+		rob.mouseClick(loginDisplay.getPasswordFieldTest());
+		rob.type("cs320");
+		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+	}
+	
+	public void testLoginFail8() {
+		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		rob.mouseClick(loginDisplay.getUserNameFieldTest());
+		rob.type(" CS320");
+		rob.mouseClick(loginDisplay.getPasswordFieldTest());
+		rob.type("cs320");
+		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+	}
+	
+	public void testLoginFail9() {
+		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		rob.mouseClick(loginDisplay.getUserNameFieldTest());
+		rob.type(" CS320 ");
+		rob.mouseClick(loginDisplay.getPasswordFieldTest());
+		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 	}
