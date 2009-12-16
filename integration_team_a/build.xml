@@ -4,18 +4,19 @@
 	<property name="svn-url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
 	<property name="svnant-jar" value = "lib/svnant.jar" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="${svnant-jar}" />
-	
+
 	<target name = "svn">
 		<delete dir="src/edu" includeEmptyDirs="true" />
-			<svn javahl="false">
-				<export srcUrl="${svn-url}" destPath = "src_temp" />
-			</svn>
+		<svn javahl="false">
+			<export srcUrl="${svn-url}" destPath = "src_temp" />
+		</svn>
 		<move todir="src">
-		  <fileset dir="src_temp" />
+			<fileset dir="src_temp" />
 		</move>
 	</target>
 
-	<path id="classpath.base"> </path>
+	<path id="classpath.base">
+	</path>
 	<path id="classpath.test">
 		<pathelement location="${tst-classes}" />
 		<path refid="classpath.base" />
@@ -25,6 +26,7 @@
 		<delete dir="${tst-reports}" />
 		<mkdir dir="${tst-reports}"/>
 		<junit fork="yes" printsummary="yes" haltonfailure="no">
+			<jvmarg value="-Xmx256M"/>
 			<batchtest fork="yes" todir="${tst-reports}" >
 				<fileset dir="target/test-classes">
 					<include name="**/*AllTests.class" />
@@ -34,6 +36,7 @@
 			<classpath refid="classpath.test" />
 		</junit>
 
+
 		<junitreport todir="${tst-reports}">
 			<fileset dir="${tst-reports}">
 				<include name="TEST-*.xml" />
@@ -41,12 +44,68 @@
 			<report todir="${tst-reports}/junitreport" />
 		</junitreport>
 
-		<!--
-		TODO: Uncomment when this class works
-		<java classname="edu.cs320.harness.TestHarnessDriver" failonerror="true">
+		<java classname="harness.TestHarnessDriver" failonerror="true">
 			<classpath refid="classpath.test"/>
+
 		</java>
-		-->
+	</target>
+
+	<target name="integration" depends="compile-steps">
+		<delete dir="${tst-reports}" />
+		<mkdir dir="${tst-reports}" />
+		<junit fork="yes" printsummary="yes" haltonfailure="no">
+			<jvmarg value="-Xmx256M" />
+			<batchtest fork="yes" todir="${tst-reports}">
+				<fileset dir="target/test-classes">
+					<include name="**/*AllTests.class" />
+				</fileset>
+			</batchtest>
+			<formatter type="xml" />
+			<classpath refid="classpath.test" />
+		</junit>
+
+
+		<junitreport todir="${tst-reports}">
+			<fileset dir="${tst-reports}">
+				<include name="INTEGRATION_TEST-*.xml" />
+			</fileset>
+			<report todir="${tst-reports}/junitreport" />
+		</junitreport>
+
+		<java classname="harness.TestHarnessDriver" failonerror="true">
+			<classpath refid="classpath.test" />
+			<arg value="integration" />
+
+		</java>
+	</target>
+	
+	<target name="system_test" depends="compile-steps">
+		<delete dir="${tst-reports}" />
+		<mkdir dir="${tst-reports}" />
+		<junit fork="yes" printsummary="yes" haltonfailure="no">
+			<jvmarg value="-Xmx256M" />
+			<batchtest fork="yes" todir="${tst-reports}">
+				<fileset dir="target/test-classes">
+					<include name="**/*AllTests.class" />
+				</fileset>
+			</batchtest>
+			<formatter type="xml" />
+			<classpath refid="classpath.test" />
+		</junit>
+
+
+		<junitreport todir="${tst-reports}">
+			<fileset dir="${tst-reports}">
+				<include name="SYSTEM_TEST-*.xml" />
+			</fileset>
+			<report todir="${tst-reports}/junitreport" />
+		</junitreport>
+
+		<java classname="harness.TestHarnessDriver" failonerror="true">
+			<classpath refid="classpath.test" />
+			<arg value="system_test" />
+
+		</java>
 	</target>
 
 	<target name="compile-steps" description="Compile classes">

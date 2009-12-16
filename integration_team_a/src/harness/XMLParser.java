@@ -98,8 +98,8 @@ public class XMLParser {
 		
 		if(getTextValue(testEl, "failure") != null){
 			t.setFailureMessage(failureMessage);
-			t.setActual(t.getActual(failureMessage));
-			t.setExpected(t.getExpected(failureMessage));
+			//t.setActual(t.getActual(failureMessage));
+			//t.setExpected(t.getExpected(failureMessage));
 		}
 		if(getTextValue(testEl, "error") != null){
 			t.setError(errorMessage);

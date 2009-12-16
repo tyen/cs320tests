@@ -326,6 +326,7 @@ public class DBHandler {
 		try {
 			if(this.connection == null){
 				this.closeTunnel();
+				return;
 			}
 
 			this.connection.close();

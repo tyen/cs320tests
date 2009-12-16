@@ -20,7 +20,7 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for edu.cs320.project");
 		//$JUnit-BEGIN$
-		suite.addTestSuite(TestPatientRecord.class);
+		/*suite.addTestSuite(TestPatientRecord.class);
 		suite.addTestSuite(TestPatientInfo.class);
 		suite.addTestSuite(TestAllergy.class);
 		suite.addTestSuite(TestQuestionSet.class);
@@ -30,7 +30,7 @@ public class AllTests {
 		suite.addTestSuite(TestIntegrationLoginUser.class);
 		suite.addTestSuite(TestIntegrationSearch.class);
 		suite.addTestSuite(TestDisplayController.class);
-		suite.addTestSuite(TestDateWrapper.class);
+		suite.addTestSuite(TestDateWrapper.class);*/
 		suite.addTestSuite(TestDrug.class);
 		//$JUnit-END$
 		return suite;

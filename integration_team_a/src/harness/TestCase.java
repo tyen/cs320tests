@@ -19,13 +19,17 @@ public class TestCase {
 	private String actual = "";
 	private String expected = "";
 	private String error;
-	private int id;
+	private int testID;
+	private String testType;
+	private int runID;
+	private int projectID;
 	
 	public TestCase(boolean isSuccessful, String className, String name, String time){
 		this.setSuccessful(isSuccessful);
 		this.setClassName(className);
 		this.setTestName(name);
 		this.setTime(time);
+		this.setProjectID(2);
 	}
 	
 	public String toString(){
@@ -144,9 +148,10 @@ public class TestCase {
 	public HashMap<String, String> toHashMap(){
 		HashMap<String, String> map = new HashMap<String, String>();
 		
-		map.put("test_id", Integer.toString(this.id));
+		map.put("test_id", Integer.toString(this.testID));
 		map.put("harness_run_id", Integer.toString(this.harnessRunID));
 		map.put("pass", Boolean.toString(isSuccessful));
+		map.put("project_id", Integer.toString(this.projectID));
 		//map.put("duration", "'" + this.time + "'");
 		if(this.error != null)
 			map.put("stacktrace", "'"+this.error.substring(0, this.error.length() < 512 ? this.error.length() : 512)+"'");
@@ -160,14 +165,14 @@ public class TestCase {
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.testID = id;
 	}
 	
 	/**
 	 * @return the id
 	 */
 	public int getId() {
-		return id;
+		return testID;
 	}
 
 	/**
@@ -192,6 +197,9 @@ public class TestCase {
 		
 		try {
 			dbHandler.insert("runsm2m", this.toHashMap());
+			this.setRunID(dbHandler.getLastGeneratedKey());
+			this.saveTestType();
+			
 			return true;
 		}
 		catch (NoDBConnectivityException e) {
@@ -208,7 +216,7 @@ public class TestCase {
 			if(dbHandler.exists("test", map)){
 				ResultSet results = dbHandler.query("test", map);
 				if(results.next()){
-					this.id = results.getInt("test_id");
+					this.testID = results.getInt("test_id");
 					return true;
 				}
 				
@@ -216,7 +224,7 @@ public class TestCase {
 			}
 			else{
 				dbHandler.insert("test", map);
-				this.id = dbHandler.getLastGeneratedKey();
+				this.testID = dbHandler.getLastGeneratedKey();
 				
 				return true;
 			}
@@ -241,6 +249,77 @@ public class TestCase {
 	 */
 	public int getHarnessRunID() {
 		return harnessRunID;
+	}
+
+	public void setTestType(String testType) {
+		this.testType = testType;
+	}
+	
+	public String getTestType() {
+		return this.testType;
+	}
+
+	/**
+	 * @param runID the runID to set
+	 */
+	public void setRunID(int runID) {
+		this.runID = runID;
+	}
+
+	/**
+	 * @return the runID
+	 */
+	public int getRunID() {
+		return runID;
+	}
+	
+	private boolean saveAsIntegrationTest(){
+		try {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("test_id", Integer.toString(this.runID));
+		
+			dbHandler.insert("integrationtest", map);
+			
+			return true;
+		} catch (NoDBConnectivityException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean saveAsUnitTest(){
+		try {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("test_id", Integer.toString(this.runID));
+		
+			dbHandler.insert("unittest", map);
+			
+			return true;
+		} catch (NoDBConnectivityException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * @param projectID the projectID to set
+	 */
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
+	}
+
+	/**
+	 * @return the projectID
+	 */
+	public int getProjectID() {
+		return projectID;
+	}
+	
+	public void saveTestType(){
+		if(this.testType.equals("integration"))
+			this.saveAsIntegrationTest();
+		else if(this.testType.equals("unit"))
+			this.saveAsUnitTest();
 	}
 
 }
