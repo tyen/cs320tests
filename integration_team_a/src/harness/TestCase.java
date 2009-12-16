@@ -14,7 +14,7 @@ public class TestCase {
 	private boolean isSuccessful;
 	private String className;
 	private String testName;
-	private String time;
+	private int time;
 	private String failureMessage;
 	private String actual = "";
 	private String expected = "";
@@ -83,13 +83,13 @@ public class TestCase {
 	 * @param time the time to set
 	 */
 	public void setTime(String time) {
-		this.time = time;
+		this.time = (int)Float.parseFloat(time) * 1000;
 	}
 
 	/**
 	 * @return the time
 	 */
-	public String getTime() {
+	public int getTime() {
 		return time;
 	}
 	
@@ -152,7 +152,7 @@ public class TestCase {
 		map.put("harness_run_id", Integer.toString(this.harnessRunID));
 		map.put("pass", Boolean.toString(isSuccessful));
 		map.put("project_id", Integer.toString(this.projectID));
-		//map.put("duration", "'" + this.time + "'");
+		map.put("duration", Integer.toString(this.time));
 		if(this.error != null)
 			map.put("stacktrace", "'"+this.error.substring(0, this.error.length() < 512 ? this.error.length() : 512)+"'");
 		if(this.failureMessage != null)

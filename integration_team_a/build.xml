@@ -1,4 +1,4 @@
-<project name="CS320 Team A Integration Tests" default="junit" basedir=".">
+<project name="CS320 Team A Test Harness" default="system" basedir=".">
 	<property name="tst-classes" location="target/test-classes" />
 	<property name="tst-reports" value="target/reports" />
 	<property name="svn-url" value = "http://my-svn.assembla.com/svn/cs320/trunk/Project/src/" />
@@ -22,7 +22,7 @@
 		<path refid="classpath.base" />
 	</path>
 
-	<target name="junit" depends="compile-steps">
+	<target name="unit" depends="compile-steps">
 		<delete dir="${tst-reports}" />
 		<mkdir dir="${tst-reports}"/>
 		<junit fork="yes" printsummary="yes" haltonfailure="no">
@@ -79,7 +79,7 @@
 		</java>
 	</target>
 	
-	<target name="system_test" depends="compile-steps">
+	<target name="system" depends="compile-steps">
 		<delete dir="${tst-reports}" />
 		<mkdir dir="${tst-reports}" />
 		<junit fork="yes" printsummary="yes" haltonfailure="no">

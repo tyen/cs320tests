@@ -1,4 +1,4 @@
-package edu.cs320.project;
+package test;
 
 import java.awt.AWTException;
 import java.awt.Point;
@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
+
+import edu.cs320.project.DisplayController;
 
 public class SmartRobot extends Robot {
 
@@ -118,6 +120,7 @@ public class SmartRobot extends Robot {
 	public void mouseClick(JComponent component){
 		Point center = this.calculateComponentCenter(component);
 		this.mouseMove(center.x, center.y);
+		delay(100);
 		this.mousePress(KeyEvent.BUTTON1_MASK);
 		delay(50);
 		this.mouseRelease(KeyEvent.BUTTON1_MASK);
