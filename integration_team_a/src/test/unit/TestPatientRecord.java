@@ -72,17 +72,17 @@ public class TestPatientRecord extends TestCase {
 			
 			
 			HashMap<String,String> inputMap = new HashMap<String,String>();
-			inputMap.put("p_id", Integer.toString(testRecord.GetP_ID()));
+			inputMap.put("p_id", Integer.toString(testRecord.RetrieveP_ID()));
 			
 			//need to save random drugs to the DB
 			int o;
 			int ran= InputGenerator.randomInt(100);
 			for(o = 0; o < ran; o++) {
 				Drug adrug=InputGenerator.randomDrug();
-				adrug.Save(""+testRecord.GetP_ID());
+				adrug.Save(""+testRecord.RetrieveP_ID());
 				Allergy aAll=InputGenerator.randomAllergy();
 				//System.out.println("ll-"+aAll.GetCause());
-				aAll.Save(""+testRecord.GetP_ID());
+				aAll.Save(""+testRecord.RetrieveP_ID());
 			}
 			
 			int j=0;
