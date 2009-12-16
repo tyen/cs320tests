@@ -53,6 +53,7 @@ public class TestHarnessDriver {
 		for(TestCase test : tests){
 			harnessDuration += test.getTime();
 			test.setTestType(testType);
+			test.setProjectID();
 			test.setHarnessRunID(harnessRun.getId());
 			test.save();
 		}

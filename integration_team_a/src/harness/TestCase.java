@@ -29,10 +29,9 @@ public class TestCase {
 		this.setClassName(className);
 		this.setTestName(name);
 		this.setTime(time);
-		this.setProjectID();
 	}
 	
-	private void setProjectID() {
+	public void setProjectID() {
 		if(this.testType.equals("unit"))
 			this.projectID = 8;
 		else if(this.testType.equals("integration"))

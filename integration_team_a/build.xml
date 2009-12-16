@@ -44,7 +44,7 @@
 
 		<junitreport todir="${unit-tst-reports}">
 			<fileset dir="${unit-tst-reports}">
-				<include name="UNIT_TEST-*.xml" />
+				<include name="TEST-*.xml" />
 			</fileset>
 			<report todir="${unit-tst-reports}/junitreport" />
 		</junitreport>
@@ -73,7 +73,7 @@
 
 		<junitreport todir="${int-tst-reports}">
 			<fileset dir="${int-tst-reports}">
-				<include name="INTEGRATION_TEST-*.xml" />
+				<include name="TEST-*.xml" />
 			</fileset>
 			<report todir="${int-tst-reports}/junitreport" />
 		</junitreport>
@@ -102,7 +102,7 @@
 
 		<junitreport todir="${sys-tst-reports}">
 			<fileset dir="${sys-tst-reports}">
-				<include name="SYSTEM_TEST-*.xml" />
+				<include name="TEST-*.xml" />
 			</fileset>
 			<report todir="${sys-tst-reports}/junitreport" />
 		</junitreport>
