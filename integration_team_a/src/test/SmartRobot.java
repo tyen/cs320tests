@@ -143,8 +143,8 @@ public class SmartRobot extends Robot {
 	}
 	
 	public void scrollDown(JScrollBar scrollPane){
-		int x = scrollPane.getX() + scrollPane.getWidth() - 2;
-		int y = scrollPane.getY() + scrollPane.getHeight() - 2;
+		int x = scrollPane.getX() + scrollPane.getWidth() / 2;
+		int y = scrollPane.getY() + scrollPane.getHeight() - 4;
 		
 		Container container = scrollPane;
 		while(container.getParent() != DisplayController.GetInstance() && container.getParent() != null){

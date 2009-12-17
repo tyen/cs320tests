@@ -48,11 +48,9 @@ public class SearchSystemTest extends TestCase {
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for a random patient not already in the database
 		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomDateStringNoTime());
-		//clicks the okay button on the message displayed
-		rob.typeEnter();
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+		Utility.logoutFromSearchMainDisplay();
 	}
 
 	
@@ -79,23 +77,12 @@ public class SearchSystemTest extends TestCase {
 		//rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
-		//weight
-		/*
-		rob.mouseClick(x+300, y+110);
-		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
-		//height
-		rob.mouseClick(x+250, y+110);
-		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
-		//patientID
-		rob.mouseClick(470,70);
-		rob.type(Integer.toString(InputGenerator.randomInt(100000)));
-		*/
 		
 		Utility.fillOutPatientDemographics(null, null, null, Integer.toString(InputGenerator.randomInt(100000)), Integer.toString(InputGenerator.randomInt(1000)) , Integer.toString(InputGenerator.randomInt(1000)) , "female");
 		
 		//click submit button
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
-		rob.delay(3000);
+		rob.delay(2000);
 		//click confirm button
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
@@ -104,7 +91,7 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SummaryDisplay);
 		summaryDisplay = (SummaryDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(summaryDisplay.getSearchButtonTest());
-		rob.delay(3000);
+		rob.delay(2000);
 		//system goes back to main search page
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
@@ -126,6 +113,19 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Fill Out All Fields");
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+	}
+	public void testSearchForNonExistingPatientWrongDate(){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		//login as pharmacist
+		Utility.login("jmolloy", "cs320");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		//search for a random patient not already in the database
+		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomString(20));
+		rob.delay(3000);
+		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Correctly Fill Out All Fields");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		Utility.logoutFromSearchMainDisplay();
 	}
 
 }
