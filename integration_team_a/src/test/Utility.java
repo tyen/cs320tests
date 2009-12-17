@@ -21,9 +21,9 @@ public class Utility {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		loginDisplay = (LoginDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("cs320");
+		rob.type(username);
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
+		rob.type(password);
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		sleep(seconds);
 	}
