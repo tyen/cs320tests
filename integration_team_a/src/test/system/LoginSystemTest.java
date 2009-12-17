@@ -30,7 +30,7 @@ public class LoginSystemTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		
+		DisplayController.GetInstance().TearDown();
 		// If not at the login screen
 		if(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay){
 			Utility.logoutFromSearchMainDisplay();

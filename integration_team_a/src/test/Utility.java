@@ -76,9 +76,9 @@ public class Utility {
 		rob.mouseClick(searchMainDisplay.getDobFieldTest());
 		rob.type(dob);
 		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
-		sleep(3);
+		sleep(5);
 		rob.typeEnter();
-		sleep(1);
+		sleep(5);
 	}
 
 	/**

@@ -22,9 +22,7 @@ public class AllergySystemTest extends TestCase {
 	SummaryDisplay summaryDisplay = null;
 	LinkedList<AllergyDisplay> allergyDisplays = null;
 	
-	static {
-		DisplayController.main(null);
-		
+	static {		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("username", "cs320");
 		map.put("password", Login.GetMD5("cs320"));
@@ -44,6 +42,7 @@ public class AllergySystemTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
+		DisplayController.main(null);
 		gotoPatientRecordDisplay();
 	}
 	
