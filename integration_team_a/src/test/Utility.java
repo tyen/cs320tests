@@ -1,6 +1,7 @@
 package test;
 
 import edu.cs320.project.*;
+import edu.cs320.project.InputGenerator;
 import static org.junit.Assert.*;
 
 public class Utility {
@@ -46,6 +47,22 @@ public class Utility {
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 		sleep(1);
+	}
+	
+	/**
+	 * searches for the Patient with the given name and date of birth
+	 * @param firstName
+	 * @param lastName
+	 * @param dob
+	 */
+	public static void searchForPatient(String firstName, String lastName, String dob){
+		rob.mouseClick(searchMainDisplay.getNameTxtTest());
+		rob.type(firstName); //creates random name of at most 20 characters
+		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
+		rob.type(lastName); //creates random name of at most 20 characters
+		rob.mouseClick(searchMainDisplay.getDobFieldTest());
+		rob.type(dob);
+		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
 	}
 	
 	/**
