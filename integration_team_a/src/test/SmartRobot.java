@@ -1,11 +1,13 @@
 package test;
 
 import java.awt.AWTException;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import edu.cs320.project.DisplayController;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 public class SmartRobot extends Robot {
 
@@ -122,6 +124,16 @@ public class SmartRobot extends Robot {
 		delay(50);
 	}
 	
+	public void mouseClick(JComponent component, Container parent){
+		Point center = this.calculateComponentCenter(component);
+		this.mouseMove(center.x + parent.getX(), center.y + parent.getY());
+		delay(100);
+		this.mousePress(KeyEvent.BUTTON1_MASK);
+		delay(50);
+		this.mouseRelease(KeyEvent.BUTTON1_MASK);
+		delay(50);
+	}
+	
 	private Point calculateComponentCenter(JComponent component){
 		int x = component.getX() + component.getWidth() / 2 + this.getXOffset();
 		int y = component.getY() + component.getHeight() / 2 + this.getYOffset();
@@ -138,7 +150,7 @@ public class SmartRobot extends Robot {
 	}
 		
 	public void mouseDoubleClick(int x, int y) {
-		this.mouseMove(x, y);
+		this.mouseMove(x + this.getXOffset(), y + this.getYOffset());
 		this.mouseClick();
 		delay(200);
 		this.mouseClick();
