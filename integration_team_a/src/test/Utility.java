@@ -83,7 +83,7 @@ public class Utility {
 	 * @param address
 	 */
 	public static void fillOutPatientDemographics(String firstName, String lastName, String dob, String patientID, 
-			String height, String weight, String gender){
+			String height, String weight, String gender, String address){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		PatientInfoDisplay patientInfoDisplay = (PatientInfoDisplay) patientRecordDisplay.getPatientInfoDisplayTest();
@@ -128,6 +128,11 @@ public class Utility {
 				rob.typeUpArrow();
 				rob.typeEnter();
 			}
+		}
+		
+		if (address != null) {
+			rob.mouseTripleClick(patientInfoDisplay.getAddressField());
+			rob.type(address);
 		}
 	}
 
