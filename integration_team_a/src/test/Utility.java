@@ -65,7 +65,14 @@ public class Utility {
 		rob.mouseClick(searchMainDisplay.getDobFieldTest());
 		rob.type(dob);
 		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
+		sleep(3);
 	}
+	
+	public static void searchForNewPatient(String firstName, String lastName, String dob){
+		searchForPatient(firstName, lastName, dob);
+		rob.typeEnter();
+		sleep(3);
+	}	
 	
 	/**
 	 * Wait for the specified number of seconds before moving to next statement.
