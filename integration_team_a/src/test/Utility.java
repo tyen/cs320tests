@@ -1,10 +1,12 @@
 package test;
 
-import javax.swing.JComboBox;
+import java.util.LinkedList;
+
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import edu.cs320.project.*;
-import edu.cs320.project.InputGenerator;
 import static org.junit.Assert.*;
 
 public class Utility {
@@ -13,6 +15,11 @@ public class Utility {
 	private static LoginDisplay loginDisplay;
 	private static SearchMainDisplay searchMainDisplay;
 	private static PatientRecordDisplay patientRecordDisplay;
+	private static AddAllergyDisplay addAllergyDisplay;
+	private static PatientInfoDisplay patientInfoDisplay;
+	private static LinkedList<AllergyDisplay> allergyDisplays;
+	private static AddDrugDisplay addDrugDisplay;
+	private static LinkedList<DrugDisplay> drugDisplays;
 
 	/**
 	 * Login to the system with specified username and password.
@@ -86,7 +93,7 @@ public class Utility {
 			String height, String weight, String gender, String address){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
-		PatientInfoDisplay patientInfoDisplay = (PatientInfoDisplay) patientRecordDisplay.getPatientInfoDisplayTest();
+		patientInfoDisplay = (PatientInfoDisplay) patientRecordDisplay.getPatientInfoDisplayTest();
 		if(firstName != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getFirstField());
 			rob.type(firstName);
@@ -138,11 +145,78 @@ public class Utility {
 
 	public static void fillOutPatientAllergy(String allergy, String reaction){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+		
+		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		addAllergyDisplay = patientRecordDisplay.getAddAllergyDisplay();
+		
+		rob.mouseClick(addAllergyDisplay.getAddAllergyButton());
+		
+		allergyDisplays = addAllergyDisplay.getAllergyDisplays();
+		rob.scrollDown(patientRecordDisplay.getAllergyPanel().getVerticalScrollBar());
+		
+		AllergyDisplay lastAllergyDisplay = allergyDisplays.getLast();
+		JTextField allergyField = lastAllergyDisplay.getAllergyFieldTest();
+		JTextField reactionField = lastAllergyDisplay.getReactionFieldTest();
+		
+		rob.mouseClick(allergyField);
+		rob.type(allergy);
+		
+		rob.mouseClick(reactionField);
+		rob.type(reaction);
+				
+		JButton saveButton = lastAllergyDisplay.getSaveButtonTest();
+		rob.mouseClick(saveButton);
+		sleep(1);
 	}
-
-	public static void searchForNewPatient(String firstName, String lastName, String dob){
-		searchForPatient(firstName,lastName,dob);
-		rob.typeEnter();
+	
+	/**
+	 * Fills out a new patient drug
+	 * @param allergy
+	 * @param reaction
+	 */
+	public static void fillOutPatientDrug(String drugName, String dosage, String unit, String route,
+			String frequency, String startDate, String stopDate, String prescriber, String reason){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+		
+		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		addDrugDisplay = patientRecordDisplay.getAddDrugDisplay();
+		
+		rob.mouseClick(addDrugDisplay.getAddDrugButton());
+		
+		drugDisplays = addDrugDisplay.getDrugDisplays();
+		rob.scrollDown(patientRecordDisplay.getDrugPanel().getVerticalScrollBar());
+		
+		DrugDisplay lastDrugDisplay = drugDisplays.getLast();
+		
+		rob.mouseClick(lastDrugDisplay.getDrugNameField());
+		rob.type(drugName);
+		
+		rob.mouseClick(lastDrugDisplay.getDosageField());
+		rob.type(dosage);
+		
+		rob.mouseClick(lastDrugDisplay.getDosageUnitField());
+		rob.type(unit);
+		
+		rob.mouseClick(lastDrugDisplay.getRouteField());
+		rob.type(route);
+		
+		rob.mouseClick(lastDrugDisplay.getFrequencyField());
+		rob.type(frequency);
+		
+		rob.mouseClick(lastDrugDisplay.getStartDateField());
+		rob.type(startDate);
+		
+		rob.mouseClick(lastDrugDisplay.getStopDateField());
+		rob.type(stopDate);
+		
+		rob.mouseClick(lastDrugDisplay.getPrescriberField());
+		rob.type(prescriber);
+		
+		rob.mouseClick(lastDrugDisplay.getReasonField());
+		rob.type(reason);
+				
+		rob.mouseClick(lastDrugDisplay.getSaveButton());
+		sleep(1);
 	}
 
 	/**

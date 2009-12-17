@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
+import test.InputGenerator;
 import test.SmartRobot;
 import test.Utility;
 import edu.cs320.project.*;

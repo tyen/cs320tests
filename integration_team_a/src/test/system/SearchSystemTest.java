@@ -1,8 +1,8 @@
 package test.system;
 
 import edu.cs320.project.*;
-import test.InputGenerator;
 import test.*;
+import test.InputGenerator;
 
 import java.awt.AWTException;
 
@@ -78,7 +78,7 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		
-		Utility.fillOutPatientDemographics(null, null, null, Integer.toString(InputGenerator.randomInt(100000)), Integer.toString(InputGenerator.randomInt(1000)) , Integer.toString(InputGenerator.randomInt(1000)) , "female");
+		Utility.fillOutPatientDemographics(null, null, null, Integer.toString(InputGenerator.randomInt(100000)), Integer.toString(InputGenerator.randomInt(1000)) , Integer.toString(InputGenerator.randomInt(1000)) , "female", InputGenerator.randomString(50));
 		
 		//click submit button
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
@@ -113,6 +113,19 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Fill Out All Fields");
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+	}
+	public void testSearchForNonExistingPatientWrongDate(){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		//login as pharmacist
+		Utility.login("jmolloy", "cs320");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		//search for a random patient not already in the database
+		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomString(20));
+		rob.delay(3000);
+		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Correctly Fill Out All Fields");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		Utility.logoutFromSearchMainDisplay();
 	}
 
 }

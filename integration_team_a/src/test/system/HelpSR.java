@@ -38,7 +38,7 @@ public class HelpSR extends Robot
 
 	public void searchForNewPatient2(String x, String y, String z)
 	{
-		Utility.searchForNewPatient(x, y, z);
+		Utility.searchForPatient(x, y, z);
 	}
 	public void searchForNewPatient(String x, String y, String z)
 	{
