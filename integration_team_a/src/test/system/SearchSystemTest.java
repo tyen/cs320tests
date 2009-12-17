@@ -19,19 +19,15 @@ public class SearchSystemTest extends TestCase {
 	
 	public SearchSystemTest(String name) {
 		super(name);
-		try {
-			rob = new SmartRobot();
-		}
-		catch (AWTException e) {
-			e.printStackTrace();
-		}
+		rob = SmartRobot.getInstance();
 	}
+	
 
 	protected void setUp() throws Exception {
+		StorageWrapper.deleteFromClient("cs320.patient");
 		super.setUp();
 		DisplayController.main(null);
 		loginDisplay = (LoginDisplay) DisplayController.GetInstance().getCurrentDisplay();
-		StorageWrapper.deleteFromClient("cs320.patient");
 	}
 
 	protected void tearDown() throws Exception {
@@ -47,21 +43,14 @@ public class SearchSystemTest extends TestCase {
 	public void testSearchForNonExistingPatientPharmacist(){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as pharmacist
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("jmolloy");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		Utility.login("jmolloy", "cs320");
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for a random patient not already in the database
 		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomDateStringNoTime());
-		rob.delay(3000);
 		//clicks the okay button on the message displayed
-		int x = DisplayController.GetInstance().GetWindow().getX();
-		int y = DisplayController.GetInstance().GetWindow().getY();
-		rob.mouseClick(x+600, y+350);
+		rob.typeEnter();
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 	}
@@ -78,27 +67,15 @@ public class SearchSystemTest extends TestCase {
 		String dob = test.InputGenerator.randomDateStringNoTime();
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as nurse
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		rob.delay(3000);
+		Utility.login("cs320", "cs320");
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for random patient not already in the database
-		rob.mouseClick(searchMainDisplay.getNameTxtTest());
-		rob.type(firstName); 
-		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
-		rob.type(lastName); 
-		rob.mouseClick(searchMainDisplay.getDobFieldTest());
-		rob.type(dob);
-		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
-		rob.delay(3000);
+		Utility.searchForPatient(firstName, lastName, dob);
 		//clicks okay button on message displayed
 		int x = DisplayController.GetInstance().GetWindow().getX();
 		int y = DisplayController.GetInstance().GetWindow().getY();
-		rob.mouseClick(x+570, y+350);
+		rob.typeEnter();
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
@@ -128,14 +105,23 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for the newly created patient
-		rob.mouseClick(searchMainDisplay.getNameTxtTest());
-		rob.type(firstName); 
-		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
-		rob.type(lastName); 
-		rob.mouseClick(searchMainDisplay.getDobFieldTest());
-		rob.type(dob);
-		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
+		Utility.searchForPatient(firstName, lastName, dob);
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+	}
+	
+	public void testSearchForEmptyPatient(){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		//login as pharmacist
+		Utility.login("jmolloy", "cs320");
 		rob.delay(3000);
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		//search for a random patient not already in the database
+		Utility.searchForPatient("", "", "");
+		//clicks the okay button on the message displayed
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		assertEquals(searchMainDisplay.getNonFoundLabel().getText(), "Please Fill Out All Fields");
+		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
 
 }
