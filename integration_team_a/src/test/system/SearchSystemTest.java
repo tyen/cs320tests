@@ -44,7 +44,6 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as pharmacist
 		Utility.login("jmolloy", "cs320");
-		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for a random patient not already in the database
@@ -53,6 +52,7 @@ public class SearchSystemTest extends TestCase {
 		rob.typeEnter();
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
 
 	
@@ -95,7 +95,7 @@ public class SearchSystemTest extends TestCase {
 		//click confirm button
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
-		rob.delay(3000);
+		rob.delay(1000);
 		//click finish button on summary page
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SummaryDisplay);
 		summaryDisplay = (SummaryDisplay)DisplayController.GetInstance().getCurrentDisplay();
@@ -107,13 +107,13 @@ public class SearchSystemTest extends TestCase {
 		//search for the newly created patient
 		Utility.searchForPatient(firstName, lastName, dob);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+		rob.mouseClick(patientRecordDisplay.getLogoutButtonTest());
 	}
 	
 	public void testSearchForEmptyPatient(){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as pharmacist
 		Utility.login("jmolloy", "cs320");
-		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for a random patient not already in the database
