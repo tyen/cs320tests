@@ -2,11 +2,11 @@ package test.system;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import test.InputGenerator;
 import test.SmartRobot;
@@ -44,7 +44,10 @@ public class AllergySystemTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-				
+		gotoPatientRecordDisplay();
+	}
+	
+	private void gotoPatientRecordDisplay() {
 		if (DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay)
 			Utility.login("cs320", "cs320", 4);
 		
@@ -76,39 +79,34 @@ public class AllergySystemTest extends TestCase {
 		return ret;
 	}
 	
-	HashSet<String> ars = new HashSet<String>();
 	
 	// Add 10 random allergies
 	public void testAllergy1() {
-		int iterations = 10;
+		HashSet<String> ars = new HashSet<String>();
+		int iterations = 5;
 		for (int i = 0; i < iterations; i++) {
-			String allergy = rep(6,(char) (65 + i));
-			String reaction = rep(6, (char) (65 + i));
-			ars.add(allergy + ":" + reaction);
-			assertEquals(allergyDisplays.size(), i);
+			String allergy = InputGenerator.randomMinString(10);
+			String reaction = InputGenerator.randomMinString(10);
 			rob.mouseClick(addAllergyDisplay.getAddAllergyButton());
-			assertEquals(allergyDisplays.size(), i + 1);
 			
 			JScrollBar scrollBar = patientRecordDisplay.getAllergyPanel().getVerticalScrollBar();
 			rob.scrollDown(scrollBar);
 			
 			AllergyDisplay lastAllergyDisplay = allergyDisplays.getLast();
 			JTextField allergyField = lastAllergyDisplay.getAllergyFieldTest();
-			assertTrue(allergyField.getText().equals(""));
 			JTextField reactionField = lastAllergyDisplay.getReactionFieldTest();
-			assertTrue(reactionField.getText().equals(""));
 			
 			rob.mouseClick(allergyField);
 			rob.type(allergy);
 			rob.delay(100);
-			assertTrue(allergyField.getText().equals(allergy));
+			allergy = allergyField.getText();
 			
 			rob.mouseClick(reactionField);
 			rob.delay(100);
 			rob.type(reaction);
+			reaction = reactionField.getText();
 			
-			//System.out.println(reactionField.getText() + " : " + reaction);
-			assertTrue(reactionField.getText().equals(reaction));
+			ars.add(allergy + ":" + reaction);
 			
 			JButton saveButton = lastAllergyDisplay.getSaveButtonTest();
 			rob.mouseClick(saveButton);
@@ -122,16 +120,16 @@ public class AllergySystemTest extends TestCase {
 		summaryDisplay = (SummaryDisplay) DisplayController.GetInstance().getCurrentDisplay();
 		assertTrue(summaryDisplay instanceof SummaryDisplay);
 		rob.mouseClick(summaryDisplay.getSearchButtonTest());
+		
 		Utility.sleep(5);
-	}
-	
-	public void testAllergy2() {
+		gotoPatientRecordDisplay();
+		
+		HashSet<String> ars2 = new HashSet<String>();
 		for (AllergyDisplay disp : allergyDisplays) {
 			JTextField allergyField = disp.getAllergyFieldTest();
-			System.out.println(allergyField.getText());
 			JTextField reactionField = disp.getReactionFieldTest();
-			System.out.println(reactionField.getText());
+			ars2.add(allergyField.getText() + ":" + reactionField.getText());
 		}
-		Utility.sleep(25);
+		assertTrue(ars.equals(ars2));
 	}
 }
