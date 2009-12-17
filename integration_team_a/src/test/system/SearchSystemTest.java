@@ -1,6 +1,7 @@
 package test.system;
 
 import edu.cs320.project.*;
+import edu.cs320.project.InputGenerator;
 import test.*;
 
 import java.awt.AWTException;
@@ -41,7 +42,7 @@ public class SearchSystemTest extends TestCase {
 	 * found and a message should be displayed saying so. After clicking out of the message,
 	 * the pharmacist should be brought back to the main search display.
 	 */
-	/*
+
 	public void testSearchForNonExistingPatientPharmacist(){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as pharmacist
@@ -69,7 +70,7 @@ public class SearchSystemTest extends TestCase {
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 	}
-	*/
+
 	
 	/**
 	 * logs in as nurse and searches for a new non-existing patient. The Patient won't be
@@ -79,7 +80,7 @@ public class SearchSystemTest extends TestCase {
 	public void testSearchForNonExistingPatientNurse(){
 		String firstName = test.InputGenerator.randomString(20); // name of 20 characters
 		String lastName = test.InputGenerator.randomString(20); //last name of 20 characters
-		String dob = test.InputGenerator.randomDateStringFormat2();
+		String dob = test.InputGenerator.randomDateStringNoTime();
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as nurse
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
@@ -106,12 +107,15 @@ public class SearchSystemTest extends TestCase {
 		rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		//weight
 		rob.mouseClick(x+300, y+110);
 		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
+		//height
 		rob.mouseClick(x+250, y+110);
-		rob.delay(5000);
 		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
-		
+		//patientID
+		rob.mouseClick(470,70);
+		rob.type(Integer.toString(InputGenerator.randomInt(100000)));
 		
 		//click submit button
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
