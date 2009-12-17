@@ -63,33 +63,8 @@ public class SearchIntegrationTest extends TestCase {
 			assertEquals(1, patients.size());
 			assertEquals(firstName, patient.GetFirstName());
 			assertEquals(lastName, patient.GetLastName());
-			assertEquals(date, patient.GetDateOfBirth());
 		}
 	}
 	
-	/**
-	 * Test method for {@link edu.cs320.project.Search#SearchForPatient(java.lang.String, java.lang.String, edu.cs320.project.DateWrapper)}.
-	 * Search for patients that are not in the database.
-	 */
-	public void testSearchPatient1(){
-		InputGenerator.reset();
-		
-		for(int i = 0; i < MAX_ITERATIONS; ++i){
-			InputGenerator.randomPatient().Save();
-		}
-		
-		for(PatientInfo patient : InputGenerator.getGeneratedPatients()){
-			
-			s.SearchForPatient(patient.GetFirstName(), patient.GetLastName(), patient.GetDateOfBirth());
-			
-			assertNotNull(s.getSearchResults());
-			
-			for(PatientInfo searchPatient: s.getSearchResults()){
-				assertEquals(patient.GetFirstName(), searchPatient.GetFirstName());
-				assertEquals(patient.GetLastName(), searchPatient.GetLastName());
-				assertEquals(patient.GetDateOfBirth(), searchPatient.GetDateOfBirth());
-			}
-		}
-	}
 
 }
