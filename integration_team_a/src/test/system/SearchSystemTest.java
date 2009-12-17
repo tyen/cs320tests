@@ -114,5 +114,18 @@ public class SearchSystemTest extends TestCase {
 		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Fill Out All Fields");
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
+	public void testSearchForNonExistingPatientWrongDate(){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		//login as pharmacist
+		Utility.login("jmolloy", "cs320");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		//search for a random patient not already in the database
+		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomString(20));
+		rob.delay(3000);
+		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Correctly Fill Out All Fields");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		Utility.logoutFromSearchMainDisplay();
+	}
 
 }
