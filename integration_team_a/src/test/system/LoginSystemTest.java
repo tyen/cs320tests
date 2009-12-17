@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.util.HashMap;
 
 import test.SmartRobot;
+import test.Utility;
 import edu.cs320.project.*;
 import junit.framework.TestCase;
 
@@ -36,9 +37,9 @@ public class LoginSystemTest extends TestCase {
 		
 		// If not at the login screen
 		if(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay){
-			sleep(3);
+			Utility.sleep(1);
 			rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
-			sleep(1);
+			Utility.sleep(1);
 		}
 		
 		loginDisplay = (LoginDisplay) DisplayController.GetInstance().getCurrentDisplay();
@@ -50,60 +51,23 @@ public class LoginSystemTest extends TestCase {
 	}
 	
 	public void testLoginSuccess1() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(4);
-		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
-		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+		Utility.login("cs320", "cs320", 3);
+		Utility.logoutFromSearchMainDisplay();
 	}
 	
 	public void testLoginSuccess2() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("CS320");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(4);
-		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
-		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+		Utility.login("CS320", "cs320", 2);
+		Utility.logoutFromSearchMainDisplay();
 	}
 	
 	public void testLoginSuccess3() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("Cs320");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(4);
-		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
-		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
-	}
-	
-	public void testLoginSuccess5() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("Cs320 ");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("cs320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		sleep(4);
-		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
-		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+		Utility.login("Cs320", "cs320", 2);
+		Utility.logoutFromSearchMainDisplay();
 	}
 	
 	@SuppressWarnings("deprecation")
 	public void testLoginSuccess4() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type("Cs320");
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
@@ -111,40 +75,30 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(loginDisplay.getClearButtonTest());
 		assertEquals(0, loginDisplay.getUserNameFieldTest().getText().length());
 		assertEquals(0, loginDisplay.getPasswordFieldTest().getText().length());
-		sleep(1);
+		Utility.sleep(1);
+	}
+	
+	public void testLoginSuccess5() {
+		Utility.login("cs320 ", "cs320", 2);
+		Utility.logoutFromSearchMainDisplay();
 	}
 	
 	public void testLoginFail1() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		Utility.login("", "", 2);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
-		sleep(1);
+		Utility.sleep(1);
 	}
 	
 	public void testLoginFail2() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("CS320");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("CS320");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		sleep(1);
+		Utility.login("CS320", "CS320", 2);
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		Utility.sleep(1);
 	}
 	
 	public void testLoginFail3() {
-		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
-		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("CS320");
-		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type("wafweasdf");
-		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		Utility.login("CS320", "wafweasdf", 2);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
-		sleep(1);
+		Utility.sleep(1);
 	}
 	
 	public void testLoginFail4() {
@@ -181,6 +135,7 @@ public class LoginSystemTest extends TestCase {
 	}
 	
 	public void testLoginFail8() {
+		Utility.login(username, password)
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
 		rob.type(" CS320");
@@ -200,15 +155,6 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		sleep(1);
-	}
-	
-	private void sleep(long seconds){
-		try {
-			Thread.sleep(seconds * 1000);
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
