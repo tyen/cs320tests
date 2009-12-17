@@ -44,9 +44,12 @@ public class SmartRobot extends Robot {
 
 
 	public void type(String text) {
+		int delay = this.getAutoDelay();
+		this.setAutoDelay(0);
 		for (int i=0; i<text.length(); ++i) {
 			typeChar(text.charAt(i));
-		}		
+		}
+		this.setAutoDelay(delay);
 	}
 
 	private void typeChar(char c) {
@@ -177,6 +180,14 @@ public class SmartRobot extends Robot {
 	
 	public void typeEnter() {
 		this.typeChar('\n');
+	}
+	
+	public void typeDownArrow() {
+		this.keyType(KeyEvent.VK_DOWN);
+	}
+	
+	public void typeUpArrow() {
+		this.keyType(KeyEvent.VK_UP);
 	}
 	
 	private int getXOffset(){
