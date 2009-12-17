@@ -120,7 +120,7 @@ public class SearchSystemTest extends TestCase {
 		Utility.searchForPatient("", "", "");
 		//clicks the okay button on the message displayed
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		assertEquals(searchMainDisplay.getNonFoundLabel().getText(), "Please Fill Out All Fields");
+		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Fill Out All Fields");
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
 
