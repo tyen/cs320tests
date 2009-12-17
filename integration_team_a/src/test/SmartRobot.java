@@ -161,6 +161,12 @@ public class SmartRobot extends Robot {
 		delay(200);
 		this.mouseClick();
 	}
+	
+	public void mouseTripleClick(JComponent component) {
+		this.mouseDoubleClick(component);
+		delay(200);
+		this.mouseClick();
+	}
 		
 	public void mouseDoubleClick(int x, int y) {
 		this.mouseMove(x + this.getXOffset(), y + this.getYOffset());
