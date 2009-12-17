@@ -152,7 +152,7 @@ public class SmartRobot extends Robot {
 			y += container.getY();
 		}
 		
-		this.mouseTripleClick();
+		this.mouseTripleClick(x, y);
 	}
 	
 	private Point calculateComponentCenter(JComponent component){
@@ -187,6 +187,11 @@ public class SmartRobot extends Robot {
 		this.mouseDoubleClick();
 		delay(200);
 		this.mouseClick();
+	}
+	
+	public void mouseTripleClick(int x, int y) {
+		this.mouseMove(x, y);
+		this.mouseTripleClick();
 	}
 		
 	public void mouseDoubleClick(int x, int y) {
