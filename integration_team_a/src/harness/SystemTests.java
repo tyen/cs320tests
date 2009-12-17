@@ -10,6 +10,7 @@ public class SystemTests {
 		TestSuite suite = new TestSuite("Unit test suite for edu.cs320.project");
 		//$JUnit-BEGIN$
 		suite.addTestSuite(LoginSystemTest.class);
+		suite.addTestSuite(LoginSystemTest.class);
 		//$JUnit-END$
 		return suite;
 	}

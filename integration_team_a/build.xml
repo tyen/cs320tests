@@ -22,7 +22,7 @@
 	<path id="classpath.test">
 		<pathelement location="${tst-classes}" />
 		<fileset dir="lib">
-		    <include name="*.jar"/>
+			<include name="*.jar"/>
 		</fileset>
 		<path refid="classpath.base" />
 	</path>
@@ -52,7 +52,7 @@
 		<java classname="harness.TestHarnessDriver" failonerror="true">
 			<classpath refid="classpath.test"/>
 			<arg value="unit" />
-			
+
 		</java>
 	</target>
 
@@ -84,7 +84,7 @@
 
 		</java>
 	</target>
-	
+
 	<target name="system" depends="compile-steps">
 		<delete dir="${sys-tst-reports}" />
 		<mkdir dir="${sys-tst-reports}" />
@@ -111,6 +111,12 @@
 			<classpath refid="classpath.test" />
 			<arg value="system" />
 
+		</java>
+	</target>
+
+	<target name="sync">
+		<java classname="test.SyncDatabase" failonerror="true">
+			<classpath refid="classpath.test" />
 		</java>
 	</target>
 

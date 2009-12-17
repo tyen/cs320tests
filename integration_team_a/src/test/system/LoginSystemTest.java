@@ -88,6 +88,19 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
 	
+	public void testLoginSuccess5() {
+		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		rob.mouseClick(loginDisplay.getUserNameFieldTest());
+		rob.type("Cs320 ");
+		rob.mouseClick(loginDisplay.getPasswordFieldTest());
+		rob.type("cs320");
+		rob.mouseClick(loginDisplay.getSubmitButtonTest());
+		sleep(4);
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
+	}
+	
 	@SuppressWarnings("deprecation")
 	public void testLoginSuccess4() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
@@ -98,6 +111,7 @@ public class LoginSystemTest extends TestCase {
 		rob.mouseClick(loginDisplay.getClearButtonTest());
 		assertEquals(0, loginDisplay.getUserNameFieldTest().getText().length());
 		assertEquals(0, loginDisplay.getPasswordFieldTest().getText().length());
+		sleep(1);
 	}
 	
 	public void testLoginFail1() {
@@ -108,6 +122,7 @@ public class LoginSystemTest extends TestCase {
 		rob.type("");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	public void testLoginFail2() {
@@ -118,6 +133,7 @@ public class LoginSystemTest extends TestCase {
 		rob.type("CS320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
+		sleep(1);
 	}
 	
 	public void testLoginFail3() {
@@ -128,6 +144,7 @@ public class LoginSystemTest extends TestCase {
 		rob.type("wafweasdf");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	public void testLoginFail4() {
@@ -138,6 +155,7 @@ public class LoginSystemTest extends TestCase {
 		rob.type("");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	public void testLoginFail6() {
@@ -148,16 +166,18 @@ public class LoginSystemTest extends TestCase {
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	public void testLoginFail7() {
 		assertSame(loginDisplay, DisplayController.GetInstance().getCurrentDisplay());
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type("CS320 ");
+		rob.type("CS 320");
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	public void testLoginFail8() {
@@ -168,6 +188,7 @@ public class LoginSystemTest extends TestCase {
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	public void testLoginFail9() {
@@ -178,6 +199,7 @@ public class LoginSystemTest extends TestCase {
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		sleep(1);
 	}
 	
 	private void sleep(long seconds){
