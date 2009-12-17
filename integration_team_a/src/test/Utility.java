@@ -55,6 +55,8 @@ public class Utility {
 	 * @param dob
 	 */
 	public static void searchForPatient(String firstName, String lastName, String dob){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getNameTxtTest());
 		rob.type(firstName); //creates random name of at most 20 characters
 		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());

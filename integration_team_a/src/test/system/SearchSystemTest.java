@@ -87,13 +87,7 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for random patient not already in the database
-		rob.mouseClick(searchMainDisplay.getNameTxtTest());
-		rob.type(firstName); 
-		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
-		rob.type(lastName); 
-		rob.mouseClick(searchMainDisplay.getDobFieldTest());
-		rob.type(dob);
-		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
+		Utility.searchForPatient(firstName, lastName, dob);
 		rob.delay(3000);
 		//clicks okay button on message displayed
 		int x = DisplayController.GetInstance().GetWindow().getX();
@@ -128,13 +122,7 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for the newly created patient
-		rob.mouseClick(searchMainDisplay.getNameTxtTest());
-		rob.type(firstName); 
-		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
-		rob.type(lastName); 
-		rob.mouseClick(searchMainDisplay.getDobFieldTest());
-		rob.type(dob);
-		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
+		Utility.searchForPatient(firstName, lastName, dob);
 		rob.delay(3000);
 	}
 
