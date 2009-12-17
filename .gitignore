@@ -1,3 +1,7 @@
 *~
 *.swp
 .metadata
+.project
+.classpath
+id_rsa
+system_log.txt
