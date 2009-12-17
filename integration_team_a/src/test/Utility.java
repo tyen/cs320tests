@@ -61,6 +61,7 @@ public class Utility {
 	 */
 	public static void searchForPatient(String firstName, String lastName, String dob){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay) DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getNameTxtTest());
 		rob.type(firstName);
 		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
