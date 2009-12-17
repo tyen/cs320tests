@@ -1,8 +1,8 @@
 package test.system;
 
+import static org.junit.Assert.assertTrue;
 import edu.cs320.project.*;
 import test.*;
-import test.InputGenerator;
 
 import java.awt.AWTException;
 
@@ -101,6 +101,9 @@ public class SearchSystemTest extends TestCase {
 		rob.mouseClick(patientRecordDisplay.getLogoutButtonTest());
 	}
 	
+	/**
+	 * tests for when all of the fields in search are empty
+	 */
 	public void testSearchForEmptyPatient(){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as pharmacist
@@ -114,7 +117,11 @@ public class SearchSystemTest extends TestCase {
 		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Fill Out All Fields");
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 	}
-	public void testSearchForNonExistingPatientWrongDate(){
+	
+	/**
+	 * checks that wrong date is not allowed
+	 */
+	public void testSearchForPatientWrongDate(){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		//login as pharmacist
 		Utility.login("jmolloy", "cs320");
@@ -122,8 +129,29 @@ public class SearchSystemTest extends TestCase {
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for a random patient not already in the database
 		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomString(20));
-		rob.delay(3000);
+		
 		assertEquals(searchMainDisplay.getNoneFoundLabel().getText(), "Please Correctly Fill Out All Fields");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		Utility.logoutFromSearchMainDisplay();
+	}
+	
+	/**
+	 * tests that the clear button works
+	 */
+	public void testSearchForNonPatientClear(){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
+		//login as pharmacist
+		Utility.login("jmolloy", "cs320");
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		//Input information into the fields in the search main display
+		rob.mouseClick(searchMainDisplay.getNameTxtTest());
+		rob.type(InputGenerator.randomString(20));
+		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
+		rob.type(InputGenerator.randomString(20));
+		rob.mouseClick(searchMainDisplay.getDobFieldTest());
+		rob.type(InputGenerator.randomDateStringNoTime());
+		rob.mouseClick(searchMainDisplay.getClearButtonTest());
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		Utility.logoutFromSearchMainDisplay();
 	}
