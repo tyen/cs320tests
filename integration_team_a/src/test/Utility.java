@@ -61,7 +61,7 @@ public class Utility {
 	 */
 	public static void searchForPatient(String firstName, String lastName, String dob){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		searchMainDisplay = (SearchMainDisplay) DisplayController.GetInstance().getCurrentDisplay();
+		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getNameTxtTest());
 		rob.type(firstName);
 		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
@@ -88,50 +88,56 @@ public class Utility {
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		PatientInfoDisplay patientInfoDisplay = (PatientInfoDisplay) patientRecordDisplay.getPatientInfoDisplayTest();
 		if(firstName != null) {
-			rob.mouseDoubleClick(patientInfoDisplay.getFirstField());
+			rob.mouseTripleClick(patientInfoDisplay.getFirstField());
 			rob.type(firstName);
 		}
 		
 		if (lastName != null) {
-			rob.mouseDoubleClick(patientInfoDisplay.getLastField());
+			rob.mouseTripleClick(patientInfoDisplay.getLastField());
 			rob.type(lastName);
 		}
 		
 		if (dob != null) {
-			rob.mouseDoubleClick(patientInfoDisplay.getDobField());
+			rob.mouseTripleClick(patientInfoDisplay.getDobField());
 			rob.type(dob);
 		}
 		
 		if (patientID != null) {
-			rob.mouseDoubleClick(patientInfoDisplay.getIdField());
+			rob.mouseTripleClick(patientInfoDisplay.getIdField());
 			rob.type(patientID);
 		}
 		
 		if (height != null) {
-			rob.mouseDoubleClick(patientInfoDisplay.getHeightField());
+			rob.mouseTripleClick(patientInfoDisplay.getHeightField());
 			rob.type(height);
 		}
 		
 		if (weight != null) {
-			rob.mouseDoubleClick(patientInfoDisplay.getWeightField());
-			rob.type(lastName);
+			rob.mouseTripleClick(patientInfoDisplay.getWeightField());
+			rob.type(weight);
 		}
 		
 		if (gender != null) {
-			int currentGender = patientInfoDisplay.getGenderDropDown().getSelectedIndex();
-			if(gender.equals("female") && currentGender != 1){
+			if(gender.equals("female")){
 				rob.mouseClick(patientInfoDisplay.getGenderDropDown());
 				rob.typeDownArrow();
+				rob.typeEnter();
 			}
-			else if(gender.equals("male") && currentGender != 0){
+			else if(gender.equals("male")){
 				rob.mouseClick(patientInfoDisplay.getGenderDropDown());
 				rob.typeUpArrow();
+				rob.typeEnter();
 			}
 		}
 	}
 	
 	public static void fillOutPatientAllergy(String allergy, String reaction){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+	}
+	
+	public static void searchForNewPatient(String firstName, String lastName, String dob){
+		searchForPatient(firstName,lastName,dob);
+		rob.typeEnter();
 	}
 	
 	/**

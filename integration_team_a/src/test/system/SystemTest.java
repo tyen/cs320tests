@@ -3,6 +3,8 @@ package test.system;
 import java.awt.AWTException;
 import java.util.ArrayList;
 
+import test.Utility;
+
 import edu.cs320.project.DisplayController;
 import edu.cs320.project.LoginDisplay;
 import edu.cs320.project.StorageWrapper;
@@ -16,9 +18,9 @@ public class SystemTest
 	{
 		setup();
 		
-		ace.login2();
+		ace.login();
 		
-		ace.searchForNewPatient2("William1939","Stumpf","06/29/88");
+		ace.searchForNewPatient("William1939","Stumpf","06/29/88");
 		
 		ArrayList<String> patient = new ArrayList<String>(); 
 		patient.add("32432");//id
@@ -47,7 +49,7 @@ public class SystemTest
 		
 		ace.fillNewPatientOut(patient,allergy,drug,questionable);
 		
-		ace.searchForNewPatient2("William1939","Stumpf","06/29/88");
+		Utility.searchForPatient("William1939","Stumpf","06/29/88");
 		
 
 	}
