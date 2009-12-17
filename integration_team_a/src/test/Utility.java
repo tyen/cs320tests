@@ -133,6 +133,11 @@ public class Utility {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 	}
 	
+	public static void searchForNewPatient(String firstName, String lastName, String dob){
+		searchForPatient(firstName,lastName,dob);
+		rob.typeEnter();
+	}
+	
 	/**
 	 * Wait for the specified number of seconds before moving to next statement.
 	 * @param seconds number of seconds to wait
