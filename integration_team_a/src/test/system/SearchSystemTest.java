@@ -31,6 +31,7 @@ public class SearchSystemTest extends TestCase {
 		super.setUp();
 		DisplayController.main(null);
 		loginDisplay = (LoginDisplay) DisplayController.GetInstance().getCurrentDisplay();
+		StorageWrapper.deleteFromClient("cs320.patient");
 	}
 
 	protected void tearDown() throws Exception {
@@ -55,13 +56,7 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
 		searchMainDisplay = (SearchMainDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//search for a random patient not already in the database
-		rob.mouseClick(searchMainDisplay.getNameTxtTest());
-		rob.type(InputGenerator.randomString(20)); //creates random name of at most 20 characters
-		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
-		rob.type(InputGenerator.randomString(20)); //creates random name of at most 20 characters
-		rob.mouseClick(searchMainDisplay.getDobFieldTest());
-		rob.type(InputGenerator.randomDateStringFormat2());
-		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
+		Utility.searchForPatient(InputGenerator.randomString(20), InputGenerator.randomString(20), InputGenerator.randomDateStringNoTime());
 		rob.delay(3000);
 		//clicks the okay button on the message displayed
 		int x = DisplayController.GetInstance().GetWindow().getX();

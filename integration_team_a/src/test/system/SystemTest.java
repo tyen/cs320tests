@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import edu.cs320.project.DisplayController;
 import edu.cs320.project.LoginDisplay;
+import edu.cs320.project.StorageWrapper;
 
 public class SystemTest 
 {
@@ -53,8 +54,8 @@ public class SystemTest
 	
 	public static void setup()
 	{
+		StorageWrapper.deleteFromClient("cs320.patient");
 		cont = DisplayController.GetInstance();
-		
 		cont.main(null);
 		loginDisplay = (LoginDisplay) DisplayController.GetInstance().getCurrentDisplay();
 		//DisplayController.main(null);
