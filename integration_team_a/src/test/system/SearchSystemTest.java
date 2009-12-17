@@ -73,13 +73,14 @@ public class SearchSystemTest extends TestCase {
 		//search for random patient not already in the database
 		Utility.searchForPatient(firstName, lastName, dob);
 		//clicks okay button on message displayed
-		int x = DisplayController.GetInstance().GetWindow().getX();
-		int y = DisplayController.GetInstance().GetWindow().getY();
+		//int x = DisplayController.GetInstance().GetWindow().getX();
+		//int y = DisplayController.GetInstance().GetWindow().getY();
 		rob.typeEnter();
-		rob.delay(3000);
+		//rob.delay(3000);
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		//weight
+		/*
 		rob.mouseClick(x+300, y+110);
 		rob.type(Integer.toString(test.InputGenerator.randomInt(1000)));
 		//height
@@ -88,6 +89,9 @@ public class SearchSystemTest extends TestCase {
 		//patientID
 		rob.mouseClick(470,70);
 		rob.type(Integer.toString(InputGenerator.randomInt(100000)));
+		*/
+		
+		Utility.fillOutPatientDemographics(null, null, null, Integer.toString(InputGenerator.randomInt(100000)), Integer.toString(InputGenerator.randomInt(1000)) , Integer.toString(InputGenerator.randomInt(1000)) , "female");
 		
 		//click submit button
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
