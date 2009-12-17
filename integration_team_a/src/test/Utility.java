@@ -94,6 +94,7 @@ public class Utility {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		patientInfoDisplay = (PatientInfoDisplay) patientRecordDisplay.getPatientInfoDisplayTest();
+		
 		if(firstName != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getFirstField());
 			rob.type(firstName);
@@ -218,6 +219,20 @@ public class Utility {
 		rob.mouseClick(lastDrugDisplay.getSaveButton());
 		sleep(1);
 	}
+	
+	public static void goBackFromPatientRecord() {
+		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+
+		rob.mouseClick(patientRecordDisplay.getGoBackButtonTest());
+		sleep(1);
+	}
+	
+	public static void logoutFromPatientRecord() {
+		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+
+		rob.mouseClick(patientRecordDisplay.getLogoutButtonTest());
+		sleep(1);
+	}
 
 	/**
 	 * Wait for the specified number of seconds before moving to next statement.
@@ -225,5 +240,14 @@ public class Utility {
 	 */
 	public static void sleep(int seconds){
 		rob.delay(seconds * 1000);
+	}
+
+	public static void confirmPatientRecord() {
+		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+
+		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
+		sleep(1);
+		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());
+		sleep(1);
 	}
 }
