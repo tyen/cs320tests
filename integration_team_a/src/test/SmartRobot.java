@@ -7,6 +7,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import edu.cs320.project.DisplayController;
 import javax.swing.JComponent;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class SmartRobot extends Robot {
@@ -141,7 +142,7 @@ public class SmartRobot extends Robot {
 		delay(50);
 	}
 	
-	public void scrollDown(JScrollPane scrollPane){
+	public void scrollDown(JScrollBar scrollPane){
 		int x = scrollPane.getX() + scrollPane.getWidth() - 2;
 		int y = scrollPane.getY() + scrollPane.getHeight() - 2;
 		

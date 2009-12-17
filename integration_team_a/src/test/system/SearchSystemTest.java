@@ -1,8 +1,8 @@
 package test.system;
 
 import edu.cs320.project.*;
-import edu.cs320.project.InputGenerator;
 import test.*;
+import test.InputGenerator;
 
 import java.awt.AWTException;
 

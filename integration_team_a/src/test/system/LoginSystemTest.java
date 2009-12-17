@@ -1,8 +1,6 @@
 package test.system;
 
-import java.awt.AWTException;
 import java.util.HashMap;
-
 import test.SmartRobot;
 import test.Utility;
 import edu.cs320.project.*;
@@ -130,5 +128,4 @@ public class LoginSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		Utility.sleep(1);
 	}
-
 }
