@@ -150,7 +150,7 @@ public class HelpSR extends Robot
 		//Click button
 		mouseMove(520,300);
 		mouseClick();
-		
+		delay(200);
 		
 		//allergy field
 		mouseMove(50,222);
@@ -165,6 +165,7 @@ public class HelpSR extends Robot
 		//Click submit button
 		mouseMove(520,260);
 		mouseClick();
+		delay(200);
 	}
 	
 	public void addDrug(ArrayList<String> drug, int y)
@@ -174,6 +175,7 @@ public class HelpSR extends Robot
 		//click button
 		mouseMove(520,500);
 		mouseClick();
+		delay(200);
 		
 		//name
 		mouseMove(70,335);
@@ -240,6 +242,7 @@ public class HelpSR extends Robot
 		//save button
 		mouseMove(460,465);
 		mouseClick();
+		delay(200);
 		
 	}
 	

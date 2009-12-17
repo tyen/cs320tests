@@ -78,7 +78,7 @@ public class SearchSystemTest extends TestCase {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		
-		Utility.fillOutPatientDemographics(null, null, null, Integer.toString(InputGenerator.randomInt(100000)), Integer.toString(InputGenerator.randomInt(1000)) , Integer.toString(InputGenerator.randomInt(1000)) , "female");
+		Utility.fillOutPatientDemographics(null, null, null, Integer.toString(InputGenerator.randomInt(100000)), Integer.toString(InputGenerator.randomInt(1000)) , Integer.toString(InputGenerator.randomInt(1000)) , "female", null);
 		
 		//click submit button
 		rob.mouseClick(patientRecordDisplay.getSubmitButtonTest());

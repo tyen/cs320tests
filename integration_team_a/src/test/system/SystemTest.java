@@ -5,22 +5,24 @@ import java.util.ArrayList;
 
 import test.Utility;
 
+import junit.framework.TestCase;
+
 import edu.cs320.project.DisplayController;
 import edu.cs320.project.LoginDisplay;
+import edu.cs320.project.PatientRecordDisplay;
 import edu.cs320.project.StorageWrapper;
 
-public class SystemTest 
+public class SystemTest extends TestCase
 {
 	public static DisplayController cont;
-	public static HelpSR ace; 
+	public static HelpSR ace;
 	private static LoginDisplay loginDisplay;
-	public static void main(String[] args) 
+
+	public void testSearchForEmptyPatient()
 	{
-		setup();
+		Utility.login("cs320","cs320");
 		
-		ace.login();
-		
-		ace.searchForNewPatient("William1939","Stumpf","06/29/88");
+		ace.searchForNewPatient("William","Stumpf","06/29/88");
 		
 		ArrayList<String> patient = new ArrayList<String>(); 
 		patient.add("32432");//id
@@ -49,15 +51,20 @@ public class SystemTest
 		
 		ace.fillNewPatientOut(patient,allergy,drug,questionable);
 		
-		Utility.searchForPatient("William1939","Stumpf","06/29/88");
+		Utility.searchForPatient("William","Stumpf","06/29/88");
+		
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+	   
+		Utility.sleep(5);
+		
 		
 
 	}
 	
-	public static void setup()
-	{
+	protected void setUp() throws Exception {
 		StorageWrapper.deleteFromClient("cs320.patient");
 		cont = DisplayController.GetInstance();
+		
 		cont.main(null);
 		loginDisplay = (LoginDisplay) DisplayController.GetInstance().getCurrentDisplay();
 		//DisplayController.main(null);
@@ -69,6 +76,9 @@ public class SystemTest
 		{
 			e.printStackTrace();
 		}
+	}
+	protected void tearDown() throws Exception {
+		super.tearDown();
 	}
 	
 }
