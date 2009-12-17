@@ -1,5 +1,8 @@
 package test;
 
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 import edu.cs320.project.*;
 import edu.cs320.project.InputGenerator;
 import static org.junit.Assert.*;
@@ -9,6 +12,7 @@ public class Utility {
 	private static SmartRobot rob = SmartRobot.getInstance();
 	private static LoginDisplay loginDisplay;
 	private static SearchMainDisplay searchMainDisplay;
+	private static PatientRecordDisplay patientRecordDisplay;
 	
 	/**
 	 * Login to the system with specified username and password.
@@ -21,9 +25,9 @@ public class Utility {
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay);
 		loginDisplay = (LoginDisplay)DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(loginDisplay.getUserNameFieldTest());
-		rob.type(username);
+		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getPasswordFieldTest());
-		rob.type(password);
+		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		sleep(seconds);
 	}
@@ -57,11 +61,10 @@ public class Utility {
 	 */
 	public static void searchForPatient(String firstName, String lastName, String dob){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay);
-		searchMainDisplay = (SearchMainDisplay) DisplayController.GetInstance().getCurrentDisplay();
 		rob.mouseClick(searchMainDisplay.getNameTxtTest());
-		rob.type(firstName); //creates random name of at most 20 characters
+		rob.type(firstName);
 		rob.mouseClick(searchMainDisplay.getLstNameTxtTest());
-		rob.type(lastName); //creates random name of at most 20 characters
+		rob.type(lastName);
 		rob.mouseClick(searchMainDisplay.getDobFieldTest());
 		rob.type(dob);
 		rob.mouseClick(searchMainDisplay.getSearchButtonTest());
@@ -70,11 +73,65 @@ public class Utility {
 		sleep(1);
 	}
 	
-	public static void searchForNewPatient(String firstName, String lastName, String dob){
-		searchForPatient(firstName, lastName, dob);
-		rob.typeEnter();
-		sleep(3);
-	}	
+	/**
+	 * Fills out the patient with the given demographics.
+	 * If a parameter is null it will be skipped.
+	 * @param patientID
+	 * @param height
+	 * @param weight
+	 * @param address
+	 */
+	public static void fillOutPatientDemographics(String firstName, String lastName, String dob, String patientID, 
+			String height, String weight, String gender){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+		patientRecordDisplay = (PatientRecordDisplay)DisplayController.GetInstance().getCurrentDisplay();
+		PatientInfoDisplay patientInfoDisplay = (PatientInfoDisplay) patientRecordDisplay.getPatientInfoDisplayTest();
+		if(firstName != null) {
+			rob.mouseDoubleClick(patientInfoDisplay.getFirstField());
+			rob.type(firstName);
+		}
+		
+		if (lastName != null) {
+			rob.mouseDoubleClick(patientInfoDisplay.getLastField());
+			rob.type(lastName);
+		}
+		
+		if (dob != null) {
+			rob.mouseDoubleClick(patientInfoDisplay.getDobField());
+			rob.type(dob);
+		}
+		
+		if (patientID != null) {
+			rob.mouseDoubleClick(patientInfoDisplay.getIdField());
+			rob.type(patientID);
+		}
+		
+		if (height != null) {
+			rob.mouseDoubleClick(patientInfoDisplay.getHeightField());
+			rob.type(height);
+		}
+		
+		if (weight != null) {
+			rob.mouseDoubleClick(patientInfoDisplay.getWeightField());
+			rob.type(lastName);
+		}
+		
+		if (gender != null) {
+			int currentGender = patientInfoDisplay.getGenderDropDown().getSelectedIndex();
+			if(gender.equals("female") && currentGender != 1){
+				rob.mouseClick(patientInfoDisplay.getGenderDropDown());
+				rob.typeDownArrow();
+			}
+			else if(gender.equals("male") && currentGender != 0){
+				rob.mouseClick(patientInfoDisplay.getGenderDropDown());
+				rob.typeUpArrow();
+			}
+		}
+	}
+	
+	public static void fillOutPatientAllergy(String allergy, String reaction){
+		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
+	}
 	
 	/**
 	 * Wait for the specified number of seconds before moving to next statement.
