@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
+import test.InputGenerator;
 import edu.cs320.project.*;
 import junit.framework.Assert;
 import junit.framework.TestCase;
