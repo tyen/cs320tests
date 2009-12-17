@@ -134,6 +134,15 @@ public class InputGenerator {
 			year, month, day, hour, minute, second);
 	}
 	
+	public static String randomDateStringNoTime() {
+		int year = randomDateYear();
+		int month = randomDateMonth();
+		int day = randomDateDay(year, month);
+
+		return String.format("%02d-%02d-%04d",
+			month, day, year);
+	}
+	
 	public static String randomDateStringFormat2() {
 		int year = randomDateYear();
 		int month = randomDateMonth();
