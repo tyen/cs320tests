@@ -44,7 +44,7 @@ public class AllergySystemTest extends TestCase {
 		super.setUp();
 				
 		if (DisplayController.GetInstance().getCurrentDisplay() instanceof LoginDisplay)
-			Utility.login("cs320", "cs320", 10);
+			Utility.login("cs320", "cs320", 4);
 		
 		if (DisplayController.GetInstance().getCurrentDisplay() instanceof SearchMainDisplay)
 			Utility.searchForPatient("Timothy", "Yen", "3-8-89");
@@ -67,17 +67,31 @@ public class AllergySystemTest extends TestCase {
 		super.tearDown();
 	}
 	
+	private class AllergyReaction {
+		public String allergy;
+		public String reaction;
+		public AllergyReaction(String allergy, String reaction) {
+			this.allergy = allergy;
+			this.reaction = reaction;
+		}
+	}
+	
+	LinkedList<AllergyReaction> ars = new LinkedList<AllergyReaction>();
+	
 	public void testAllergy1() {
+		// add 10 random allergies
+		
 		int iterations = 10;
 		for (int i = 0; i < iterations; i++) {
-			System.out.println(i);
 			String allergy = InputGenerator.randomMinString(10);
 			String reaction = InputGenerator.randomMinString(10);
+			ars.add(new AllergyReaction(allergy, reaction));
 			assertEquals(allergyDisplays.size(), i);
 			rob.mouseClick(addAllergyDisplay.getAddAllergyButton());
 			assertEquals(allergyDisplays.size(), i + 1);
 			
-			JScrollBar scrollPane = patientRecordDisplay.getAllergyPanel().getVerticalScrollBar();
+			JScrollBar scrollBar = patientRecordDisplay.getAllergyPanel().getVerticalScrollBar();
+			rob.scrollDown(scrollBar);
 			
 			AllergyDisplay lastAllergyDisplay = allergyDisplays.getLast();
 			JTextField allergyField = lastAllergyDisplay.getAllergyFieldTest();
@@ -96,7 +110,10 @@ public class AllergySystemTest extends TestCase {
 			
 			JButton saveButton = lastAllergyDisplay.getSaveButtonTest();
 			rob.mouseClick(saveButton);
-			Utility.sleep(1);
 		}
+		
+		
+		
+		Utility.sleep(10);
 	}
 }
