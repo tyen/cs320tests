@@ -7,11 +7,24 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import edu.cs320.project.DisplayController;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 public class SmartRobot extends Robot {
 
-	public SmartRobot() throws AWTException {
+	private static SmartRobot instance;
+	
+	static {
+		try {
+			instance = new SmartRobot();
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static SmartRobot getInstance() {
+		return instance;
+	}
+	
+	private SmartRobot() throws AWTException {
 		super();
 	}
 

@@ -1,22 +1,13 @@
 package test;
 
-import java.awt.AWTException;
 import edu.cs320.project.*;
 import static org.junit.Assert.*;
 
 public class Utility {
 
-	private static SmartRobot rob;
+	private static SmartRobot rob = SmartRobot.getInstance();
 	private static LoginDisplay loginDisplay;
 	private static SearchMainDisplay searchMainDisplay;
-	
-	static{
-		try {
-			rob = new SmartRobot();
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	/**
 	 * Login to the system with specified username and password.
@@ -34,6 +25,16 @@ public class Utility {
 		rob.type("cs320");
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		sleep(seconds);
+	}
+	
+	/**
+	 * Login to the system with specified username and password.
+	 * Sleeps 3 seconds.
+	 * @param username The username to type
+	 * @param password The password to type
+	 */
+	public static void login(String username, String password){
+		login(username, password, 3);
 	}
 	
 	/**
