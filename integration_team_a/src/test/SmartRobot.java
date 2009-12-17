@@ -140,19 +140,16 @@ public class SmartRobot extends Robot {
 		delay(50);
 	}
 	
-	public void mouseClick(JComponent component, Container parent){
-		Point center = this.calculateComponentCenter(component);
-		this.mouseMove(center.x + parent.getX(), center.y + parent.getY());
-		delay(100);
-		this.mousePress(KeyEvent.BUTTON1_MASK);
-		delay(50);
-		this.mouseRelease(KeyEvent.BUTTON1_MASK);
-		delay(50);
-	}
-	
 	private Point calculateComponentCenter(JComponent component){
-		int x = component.getX() + component.getWidth() / 2 + this.getXOffset();
-		int y = component.getY() + component.getHeight() / 2 + this.getYOffset();
+		int x = component.getX() + component.getWidth() / 2;
+		int y = component.getY() + component.getHeight() / 2;
+		
+		Container container = component;
+		while(container.getParent() != DisplayController.GetInstance() && container.getParent() != null){
+			container = container.getParent();
+			x += container.getX();
+			y += container.getY();
+		}
 		
 		return new Point(x, y);
 	}
@@ -197,7 +194,7 @@ public class SmartRobot extends Robot {
 	
 	private int getYOffset(){
 		DisplayController instance = DisplayController.GetInstance();
-		return instance.getYOnScreen() + 25;
+		return instance.getYOnScreen();
 	}
 
 }

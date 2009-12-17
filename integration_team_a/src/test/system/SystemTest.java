@@ -16,9 +16,9 @@ public class SystemTest
 	{
 		setup();
 		
-		ace.login();
+		ace.login2();
 		
-		ace.searchForNewPatient("William1939","Stumpf","06/29/88");
+		ace.searchForNewPatient2("William1939","Stumpf","06/29/88");
 		
 		ArrayList<String> patient = new ArrayList<String>(); 
 		patient.add("32432");//id
@@ -47,7 +47,7 @@ public class SystemTest
 		
 		ace.fillNewPatientOut(patient,allergy,drug,questionable);
 		
-		ace.searchForNewPatient("William1939","Stumpf","06/29/88");
+		ace.searchForNewPatient2("William1939","Stumpf","06/29/88");
 		
 
 	}

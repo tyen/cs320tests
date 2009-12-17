@@ -79,7 +79,7 @@ public class TestPatientRecord extends TestCase {
 			int ran= InputGenerator.randomInt(100);
 			for(o = 0; o < ran; o++) {
 				Drug adrug=InputGenerator.randomDrug();
-				adrug.Save(""+testRecord.RetrieveP_ID());
+				//adrug.Save(""+testRecord.RetrieveP_ID());
 				Allergy aAll=InputGenerator.randomAllergy();
 				//System.out.println("ll-"+aAll.GetCause());
 				aAll.Save(""+testRecord.RetrieveP_ID());
