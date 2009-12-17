@@ -7,6 +7,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import edu.cs320.project.DisplayController;
 import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 
 public class SmartRobot extends Robot {
 
@@ -140,6 +141,20 @@ public class SmartRobot extends Robot {
 		delay(50);
 	}
 	
+	public void scrollDown(JScrollPane scrollPane){
+		int x = scrollPane.getX() + scrollPane.getWidth() - 2;
+		int y = scrollPane.getY() + scrollPane.getHeight() - 2;
+		
+		Container container = scrollPane;
+		while(container.getParent() != DisplayController.GetInstance() && container.getParent() != null){
+			container = container.getParent();
+			x += container.getX();
+			y += container.getY();
+		}
+		
+		this.mouseTripleClick();
+	}
+	
 	private Point calculateComponentCenter(JComponent component){
 		int x = component.getX() + component.getWidth() / 2;
 		int y = component.getY() + component.getHeight() / 2;
@@ -164,6 +179,12 @@ public class SmartRobot extends Robot {
 	
 	public void mouseTripleClick(JComponent component) {
 		this.mouseDoubleClick(component);
+		delay(200);
+		this.mouseClick();
+	}
+	
+	public void mouseTripleClick() {
+		this.mouseDoubleClick();
 		delay(200);
 		this.mouseClick();
 	}

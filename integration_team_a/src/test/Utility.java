@@ -13,7 +13,7 @@ public class Utility {
 	private static LoginDisplay loginDisplay;
 	private static SearchMainDisplay searchMainDisplay;
 	private static PatientRecordDisplay patientRecordDisplay;
-	
+
 	/**
 	 * Login to the system with specified username and password.
 	 * Sleeps the specified number of seconds.
@@ -31,7 +31,7 @@ public class Utility {
 		rob.mouseClick(loginDisplay.getSubmitButtonTest());
 		sleep(seconds);
 	}
-	
+
 	/**
 	 * Login to the system with specified username and password.
 	 * Sleeps 3 seconds.
@@ -41,7 +41,7 @@ public class Utility {
 	public static void login(String username, String password){
 		login(username, password, 3);
 	}
-	
+
 	/**
 	 * Logout from the search main display.
 	 * Sleeps one second.
@@ -52,7 +52,7 @@ public class Utility {
 		rob.mouseClick(searchMainDisplay.getLogoutButtonTest());
 		sleep(1);
 	}
-	
+
 	/**
 	 * searches for the Patient with the given name and date of birth
 	 * @param firstName
@@ -73,7 +73,7 @@ public class Utility {
 		rob.typeEnter();
 		sleep(1);
 	}
-	
+
 	/**
 	 * Fills out the patient with the given demographics.
 	 * If a parameter is null it will be skipped.
@@ -91,32 +91,32 @@ public class Utility {
 			rob.mouseTripleClick(patientInfoDisplay.getFirstField());
 			rob.type(firstName);
 		}
-		
+
 		if (lastName != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getLastField());
 			rob.type(lastName);
 		}
-		
+
 		if (dob != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getDobField());
 			rob.type(dob);
 		}
-		
+
 		if (patientID != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getIdField());
 			rob.type(patientID);
 		}
-		
+
 		if (height != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getHeightField());
 			rob.type(height);
 		}
-		
+
 		if (weight != null) {
 			rob.mouseTripleClick(patientInfoDisplay.getWeightField());
 			rob.type(weight);
 		}
-		
+
 		if (gender != null) {
 			if(gender.equals("female")){
 				rob.mouseClick(patientInfoDisplay.getGenderDropDown());
@@ -130,16 +130,16 @@ public class Utility {
 			}
 		}
 	}
-	
+
 	public static void fillOutPatientAllergy(String allergy, String reaction){
 		assertTrue(DisplayController.GetInstance().getCurrentDisplay() instanceof PatientRecordDisplay);
 	}
-	
+
 	public static void searchForNewPatient(String firstName, String lastName, String dob){
 		searchForPatient(firstName,lastName,dob);
 		rob.typeEnter();
 	}
-	
+
 	/**
 	 * Wait for the specified number of seconds before moving to next statement.
 	 * @param seconds number of seconds to wait
